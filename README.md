@@ -1,6 +1,6 @@
 # BlockPerformance
 
-Discover Your Blockchain's True Limits.
+*Discover Your Blockchain's True Limits.*
 
 This tool helps you automate blockchain performance testing. It can set up a test cluster for you with one click and send large-scale requests to test the upper limits of your blockchain system's request processing capabilities.
 
