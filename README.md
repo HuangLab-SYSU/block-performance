@@ -8,7 +8,7 @@ This tool was originally used by our team to test the performance of BrokerChain
 
 # Prerequisites
 
-Before using this tool, please ensure you have your own AWS account and have created an API Key. This tool will use it to request AWS to perform operations such as creating servers. Additionally, you need to be familiar with the Apache JMeter testing tool. You should understand how to use it, and most importantly, you need to have created a test plan (a text file) using this tool. If you are not yet familiar with Apache JMeter, you can visit its official website to learn how to use it.
+Before using this tool, please ensure you have your own Amazon Web Services (AWS) account and have created an API Key. This tool will use it to request AWS to perform operations such as creating servers. Additionally, you need to be familiar with the Apache JMeter testing tool. You should understand how to use it, and most importantly, you need to have created a test plan (a text file) using this tool. If you are not yet familiar with Apache JMeter, you can visit its official website to learn how to use it.
 
 # How does it work?
 
