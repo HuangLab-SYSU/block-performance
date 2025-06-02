@@ -7,9 +7,9 @@ import { Logger } from "../../../myutils/logger.js";
 import { classic } from "../../../myutils/node/classic.js";
 const { __dirname } = classic(import.meta.url);
 
-export function attach_upload_handler(plog: Logger, opt: { exp_app: express.Express; url_prefix: string }) {
+export function attach_upload_handler(plog: Logger, opt: { router: express.Router }) {
     const log = plog.sub("server.attach_upload_handler");
-    const { exp_app, url_prefix } = opt;
+    const { router } = opt;
 
     const upload_dir = path.resolve(__dirname, "../_webroot-upload/");
     log.variable("upload_dir", upload_dir);
@@ -37,8 +37,8 @@ export function attach_upload_handler(plog: Logger, opt: { exp_app: express.Expr
         })
     });
 
-    exp_app.use(url_prefix, express.static(path.resolve(__dirname, "../_webroot-upload")));
-    exp_app.post(url_prefix, upload.any(), (req, res) => {
+    router.use("/upload", express.static(path.resolve(__dirname, "../_webroot-upload")));
+    router.post("/upload", upload.any(), (req, res) => {
         const files = Array.isArray(req.files) ? req.files : [];
         log.variable("files", files);
         const result = files.map((item) => {
