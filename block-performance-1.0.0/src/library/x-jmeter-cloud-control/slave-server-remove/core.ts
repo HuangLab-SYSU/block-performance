@@ -4,9 +4,22 @@ import { Logger } from "../../../myutils/logger.js";
 import { Input, Output, Callback } from "./type.js";
 import * as store from "../../x-jmeter-cloud-store/export.js";
 import * as cloud_server from "../../x-cloud-server-aws-lightsail/export.js";
-import { credentials } from "../_/index.js";
+import { credential_get } from "../../x-jmeter-cloud-credential/export.js";
 
 export async function core<R>(log: Logger, input: Input, cb: Callback<R>): Promise<R> {
+    const { credential } = await credential_get(
+        log,
+        {},
+        {
+            ok: (output) => {
+                return output;
+            },
+            fail: (err) => {
+                throw err;
+            }
+        }
+    );
+
     return await store.slave_server_get(
         log,
         {
@@ -20,7 +33,10 @@ export async function core<R>(log: Logger, input: Input, cb: Callback<R>): Promi
                 await cloud_server.instance_remove(
                     log,
                     {
-                        credentials,
+                        credentials: {
+                            accessKeyId: credential.aws_lightsail.access_key_id,
+                            secretAccessKey: credential.aws_lightsail.secret_access_key
+                        },
                         id: slave_server.cloud_server.aws_lightsail_instance_id
                     },
                     {

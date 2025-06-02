@@ -50,6 +50,9 @@
             "path": "./x-cloud-server-store"
         },
         {
+            "path": "./x-jmeter-cloud-credential"
+        },
+        {
             "path": "./x-jmeter-cloud-store"
         },
         {

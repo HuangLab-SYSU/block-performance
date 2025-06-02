@@ -5,13 +5,29 @@ import { guid } from "../../../myutils/common/guid.js";
 import { Input, Output, Callback } from "./type.js";
 import * as store from "../../x-jmeter-cloud-store/export.js";
 import * as cloud_server from "../../x-cloud-server-aws-lightsail/export.js";
-import { credentials } from "../_/index.js";
+import { credential_get } from "../../x-jmeter-cloud-credential/export.js";
 
 export async function core<R>(log: Logger, input: Input, cb: Callback<R>): Promise<R> {
+    const { credential } = await credential_get(
+        log,
+        {},
+        {
+            ok: (output) => {
+                return output;
+            },
+            fail: (err) => {
+                throw err;
+            }
+        }
+    );
+
     const { aws_lightsail_instance } = await cloud_server.instance_create(
         log,
         {
-            credentials,
+            credentials: {
+                accessKeyId: credential.aws_lightsail.access_key_id,
+                secretAccessKey: credential.aws_lightsail.secret_access_key
+            },
             // region: input.region,
             region: "us-east-1",
             // availabilityZone: `${input.region}a`, // random zone

@@ -2,10 +2,24 @@
 
 import { Logger } from "../../../myutils/logger.js";
 import { Input, Output, Callback } from "./type.js";
+import { credential_upgrade } from "../credential-upgrade/export.js";
 import { master_server_upgrade } from "../master-server-upgrade/export.js";
 import { slave_server_upgrade } from "../slave-server-upgrade/export.js";
 
 export async function core<R>(log: Logger, input: Input, cb: Callback<R>): Promise<R> {
+    await credential_upgrade(
+        log,
+        {},
+        {
+            ok: (output) => {
+                return output;
+            },
+            fail: (err) => {
+                throw err;
+            }
+        }
+    );
+
     await master_server_upgrade(
         log,
         {},

@@ -12,6 +12,9 @@
             "path": "../x-jmeter-cloud-store"
         },
         {
+            "path": "../x-jmeter-cloud-credential"
+        },
+        {
             "path": "../x-cloud-server-aws-lightsail"
         },
         {
