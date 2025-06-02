@@ -1,2 +1,3 @@
-# block-performance
+# BlockPerformance
+
 Discover Your Blockchain's True Limits.
