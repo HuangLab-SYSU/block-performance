@@ -1,0 +1,21 @@
+{
+    "extends": "../../../tsconfig.base.json",
+    "compilerOptions": {
+        "outDir": "../../../dist/library/x-cloud-server-aws-lightsail",
+        "rootDir": "."
+    },
+    "references": [
+        {
+            "path": "../../myutils"
+        },
+        {
+            "path": "../x-cloud-server-store"
+        },
+        {
+            "path": "../aws-lightsail"
+        },
+        {
+            "path": "../x-ssh-key-control"
+        }
+    ]
+}

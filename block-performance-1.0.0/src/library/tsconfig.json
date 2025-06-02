@@ -6,6 +6,60 @@
     "references": [
         {
             "path": "./x-block-performance-server"
+        },
+        {
+            "path": "./x-jmeter-cloud-control"
+        },
+        {
+            "path": "./aws-lightsail"
+        },
+        {
+            "path": "./buffer"
+        },
+        {
+            "path": "./cloudman"
+        },
+        {
+            "path": "./file-system"
+        },
+        {
+            "path": "./package-json"
+        },
+        {
+            "path": "./packager"
+        },
+        {
+            "path": "./pty"
+        },
+        {
+            "path": "./storage-simple-coll"
+        },
+        {
+            "path": "./tailwind"
+        },
+        {
+            "path": "./task-queue"
+        },
+        {
+            "path": "./typescript"
+        },
+        {
+            "path": "./x-cloud-server-aws-lightsail"
+        },
+        {
+            "path": "./x-cloud-server-store"
+        },
+        {
+            "path": "./x-jmeter-cloud-store"
+        },
+        {
+            "path": "./x-ssh-key-control"
+        },
+        {
+            "path": "./x-ssh-key-store"
+        },
+        {
+            "path": "./zip"
         }
     ]
 }

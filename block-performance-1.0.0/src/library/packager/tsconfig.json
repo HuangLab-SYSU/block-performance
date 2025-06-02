@@ -1,0 +1,27 @@
+{
+    "extends": "../../../tsconfig.base.json",
+    "compilerOptions": {
+        "outDir": "../../../dist/library/packager",
+        "rootDir": "."
+    },
+    "references": [
+        {
+            "path": "../../myutils"
+        },
+        {
+            "path": "../typescript"
+        },
+        {
+            "path": "../file-system"
+        },
+        {
+            "path": "../pty"
+        },
+        {
+            "path": "../package-json"
+        },
+        {
+            "path": "../tailwind"
+        }
+    ]
+}

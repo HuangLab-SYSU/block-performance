@@ -1,0 +1,15 @@
+{
+    "extends": "../../../tsconfig.base.json",
+    "compilerOptions": {
+        "outDir": "../../../dist/library/tailwind",
+        "rootDir": "."
+    },
+    "references": [
+        {
+            "path": "../../myutils"
+        },
+        {
+            "path": "../file-system"
+        }
+    ]
+}

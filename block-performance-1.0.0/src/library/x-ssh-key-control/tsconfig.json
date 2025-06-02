@@ -1,0 +1,18 @@
+{
+    "extends": "../../../tsconfig.base.json",
+    "compilerOptions": {
+        "outDir": "../../../dist/library/x-ssh-key-control",
+        "rootDir": "."
+    },
+    "references": [
+        {
+            "path": "../../myutils"
+        },
+        {
+            "path": "../x-ssh-key-store"
+        },
+        {
+            "path": "../file-system"
+        }
+    ]
+}

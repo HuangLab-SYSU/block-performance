@@ -1,0 +1,12 @@
+{
+    "extends": "../../../tsconfig.base.json",
+    "compilerOptions": {
+        "outDir": "../../../dist/library/typescript",
+        "rootDir": "."
+    },
+    "references": [
+        {
+            "path": "../../myutils"
+        }
+    ]
+}

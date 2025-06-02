@@ -1,0 +1,24 @@
+{
+    "extends": "../../../tsconfig.base.json",
+    "compilerOptions": {
+        "outDir": "../../../dist/library/x-jmeter-cloud-control",
+        "rootDir": "."
+    },
+    "references": [
+        {
+            "path": "../../myutils"
+        },
+        {
+            "path": "../x-jmeter-cloud-store"
+        },
+        {
+            "path": "../x-cloud-server-aws-lightsail"
+        },
+        {
+            "path": "../cloudman"
+        },
+        {
+            "path": "../pty"
+        }
+    ]
+}

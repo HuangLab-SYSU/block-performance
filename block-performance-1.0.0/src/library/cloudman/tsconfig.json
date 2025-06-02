@@ -1,0 +1,21 @@
+{
+    "extends": "../../../tsconfig.base.json",
+    "compilerOptions": {
+        "outDir": "../../../dist/library/cloudman",
+        "rootDir": "."
+    },
+    "references": [
+        {
+            "path": "../../myutils"
+        },
+        {
+            "path": "../pty"
+        },
+        {
+            "path": "../packager"
+        },
+        {
+            "path": "../x-ssh-key-control"
+        }
+    ]
+}
