@@ -8,7 +8,7 @@ This tool was originally used by our team to test the performance of BrokerChain
 
 # Prerequisites
 
-Before using this tool, please ensure you have your own Amazon Web Services (AWS) account and have created an API Key. This tool will use it to request AWS to perform operations such as creating servers.
+Before using this tool, please ensure you have your own Amazon Web Services (AWS) account and have created an Lightsail API Key. This tool will use it to request AWS to perform operations such as creating servers.
 
 Additionally, you need to be familiar with the Apache JMeter testing tool. You should understand how to use it, and most importantly, you need to have created a test plan (a text file) using this tool. If you are not yet familiar with Apache JMeter, you can visit its official website to learn how to use it.
 
@@ -22,7 +22,7 @@ This tool automatically calls the Amazon Web Services (AWS) API to allocate a sp
 
 Three steps to use it:
 
-## Step 1 - Create an Apache JMeter Cluster (on AWS).
+## Step 1 - Create an Apache JMeter Cluster (on AWS Lightsail).
 
 Execute the following in your command line terminal:
 
