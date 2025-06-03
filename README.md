@@ -12,6 +12,8 @@ Before using this tool, please ensure you have your own Amazon Web Services (AWS
 
 Additionally, you need to be familiar with the Apache JMeter testing tool. You should understand how to use it, and most importantly, you need to have created a test plan (a text file) using this tool. If you are not yet familiar with Apache JMeter, you can visit its official website to learn how to use it.
 
+Running this tool requires Node.js, so please ensure it is installed on your computer. Additionally, if you need to build this repository's code from scratch, you will also need Docker installed on your computer.
+
 # How does it work?
 
 This tool automatically calls the Amazon Web Services (AWS) API to allocate a specified number of servers for you and configures them into an Apache JMeter cluster. One of these servers will be the Master server, and the rest will be Slave servers. You can send your test plan to the Master server, which will then execute your test plan and generate the final test report. The entire process is fully automated.
