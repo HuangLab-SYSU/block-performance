@@ -22,8 +22,36 @@ This tool automatically calls the Amazon Web Services (AWS) API to allocate a sp
 
 Three steps to use it:
 
-Step 1 - Create an Apache JMeter Cluster (on AWS).
+## Step 1 - Create an Apache JMeter Cluster (on AWS).
 
-Step 2 - Run your test plan on the master server and download the report.
+Execute the following in your command line terminal:
 
-Step 3 - Terminate the cluster. (All servers will be terminated, saving you money.)
+```bash
+node jmeter-cluster-create
+```
+
+Follow the prompts in your command line terminal to enter the `slave_server_count` and your AWS API KEY information, specifically `access_key_id` and `secret_access_key`. The program will then allocate the specified number of servers.
+
+This step will take some time as each server will install the necessary software from scratch. Please be patient.
+
+## Step 2 - Run your test plan on the master server and download the report.
+
+Now you can use the cluster you've created for testing. Please have your `.jmx` file ready (this is the text file JMeter uses to describe your test plan), then execute the following in your command line:
+
+```bash
+node jmeter-cluster-run
+```
+
+Follow the prompts to provide the following information:
+
+- `local_test_plan_file_path`: This parameter specifies the complete path to your `.jmx` file.
+- `download_jtl_file_to_path`: This parameter indicates where you want to download the generated `.jtl` data file to your local computer after the test is complete.
+- `download_html_report_directory_to_path`: This parameter specifies where you want to download the generated HTML report (an entire folder) to your local computer after the test is complete.
+
+Depending on the complexity of your test, this step can take a very short or a very long time to execute. Once the test successfully finishes, you will see the test data file and the corresponding HTML report on your local computer.
+
+## Step 3 - Remove the cluster. (All servers will be terminated, saving you money.)
+
+```bash
+node jmeter-cluster-remove
+```
