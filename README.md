@@ -50,8 +50,14 @@ Follow the prompts to provide the following information:
 
 Depending on the complexity of your test, this step can take a very short or a very long time to execute. Once the test successfully finishes, you will see the test data file and the corresponding HTML report on your local computer.
 
+You can repeat this step as many times as needed until you achieve satisfactory results. However, please avoid starting a new test before the current one has finished. A server cluster can only execute one test at a time.
+
 ## Step 3 - Remove the cluster. (All servers will be terminated, saving you money.)
+
+Finally, don't forget to release all the servers; otherwise, you'll continue to be billed by AWS. Similar to before, you'll need to provide your AWS API key information.
 
 ```bash
 node jmeter-cluster-remove
 ```
+
+And that's it! These are the primary steps for using BlockPerformance.
