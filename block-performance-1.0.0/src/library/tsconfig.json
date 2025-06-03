@@ -8,7 +8,7 @@
             "path": "./x-block-performance-server"
         },
         {
-            "path": "./x-jmeter-cloud-control"
+            "path": "./x-block-performance-control"
         },
         {
             "path": "./aws-lightsail"
@@ -48,6 +48,9 @@
         },
         {
             "path": "./x-cloud-server-store"
+        },
+        {
+            "path": "./x-jmeter-cloud-control"
         },
         {
             "path": "./x-jmeter-cloud-credential"
