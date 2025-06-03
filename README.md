@@ -18,6 +18,31 @@ Running this tool requires Node.js, so please ensure it is installed on your com
 
 This tool automatically calls the Amazon Web Services (AWS) API to allocate a specified number of servers for you and configures them into an Apache JMeter cluster. One of these servers will be the Master server, and the rest will be Slave servers. You can send your test plan to the Master server, which will then execute your test plan and generate the final test report. The entire process is fully automated.
 
+# How to Install?
+
+**Note**: This program has currently only been tested on macOS and Linux. The program itself can run on Windows, but you'll need to adjust the following steps accordingly.
+
+Download the source code to your computer:
+
+```bash
+git clone https://github.com/HuangLab-SYSU/block-performance.git
+```
+
+Build the program:
+
+```bash
+cd block-performance
+bash build.sh
+```
+
+After a successful build, you'll see a new output folder. The program is now ready (all dependencies have been installed):
+
+```bash
+cd output/block-performance-1.0.0/dist/library/x-block-performance-control
+```
+
+You can now start using it!
+
 # How to use it?
 
 Three steps to use it:
