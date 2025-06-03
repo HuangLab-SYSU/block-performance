@@ -2,3 +2,4 @@
 export * from "./credential/type/index.js";
 export * from "./master-server/type/index.js";
 export * from "./slave-server/type/index.js";
+export * from "./target-server/type/index.js";

@@ -31,6 +31,16 @@ import { handle_rpc_slave_server_del } from "../slave-server-del/rpc/handle.js";
 import { handle_rpc_slave_server_get } from "../slave-server-get/rpc/handle.js";
 import { handle_rpc_slave_server_set } from "../slave-server-set/rpc/handle.js";
 import { handle_rpc_slave_server_upgrade } from "../slave-server-upgrade/rpc/handle.js";
+import { handle_rpc_target_server_ls_raw } from "../target-server-ls-raw/rpc/handle.js";
+import { handle_rpc_target_server_add_raw } from "../target-server-add-raw/rpc/handle.js";
+import { handle_rpc_target_server_get_raw } from "../target-server-get-raw/rpc/handle.js";
+import { handle_rpc_target_server_set_raw } from "../target-server-set-raw/rpc/handle.js";
+import { handle_rpc_target_server_ls } from "../target-server-ls/rpc/handle.js";
+import { handle_rpc_target_server_add } from "../target-server-add/rpc/handle.js";
+import { handle_rpc_target_server_del } from "../target-server-del/rpc/handle.js";
+import { handle_rpc_target_server_get } from "../target-server-get/rpc/handle.js";
+import { handle_rpc_target_server_set } from "../target-server-set/rpc/handle.js";
+import { handle_rpc_target_server_upgrade } from "../target-server-upgrade/rpc/handle.js";
 import { handle_rpc_upgrade } from "../upgrade/rpc/handle.js";
 
 export function attach_rpc_handler(plog: Logger, opt: { router: express.Router }) {
@@ -766,6 +776,256 @@ export function attach_rpc_handler(plog: Logger, opt: { router: express.Router }
         const input = req.body;
         const req_log = log.sub("post.library.x-jmeter-cloud-store.slave-server-upgrade");
         handle_rpc_slave_server_upgrade(req_log, input, {
+            invalid_input: (err) => {
+                // bad request
+                req_log.error(err);
+                res.status(400);
+                res.end(err.message);
+            },
+            ok: (result) => {
+                // include normal fail case
+                req_log.variable("result", result);
+                req_log.ok();
+                res.json(result);
+            },
+            fail: (err) => {
+                // internal error (not normal fail)
+                req_log.error(err);
+                res.status(500);
+                res.end(err.message);
+            }
+        });
+    });
+
+    router.post("/library/x-jmeter-cloud-store/target-server-ls-raw", (req, res) => {
+        const input = req.body;
+        const req_log = log.sub("post.library.x-jmeter-cloud-store.target-server-ls-raw");
+        handle_rpc_target_server_ls_raw(req_log, input, {
+            invalid_input: (err) => {
+                // bad request
+                req_log.error(err);
+                res.status(400);
+                res.end(err.message);
+            },
+            ok: (result) => {
+                // include normal fail case
+                req_log.variable("result", result);
+                req_log.ok();
+                res.json(result);
+            },
+            fail: (err) => {
+                // internal error (not normal fail)
+                req_log.error(err);
+                res.status(500);
+                res.end(err.message);
+            }
+        });
+    });
+
+    router.post("/library/x-jmeter-cloud-store/target-server-add-raw", (req, res) => {
+        const input = req.body;
+        const req_log = log.sub("post.library.x-jmeter-cloud-store.target-server-add-raw");
+        handle_rpc_target_server_add_raw(req_log, input, {
+            invalid_input: (err) => {
+                // bad request
+                req_log.error(err);
+                res.status(400);
+                res.end(err.message);
+            },
+            ok: (result) => {
+                // include normal fail case
+                req_log.variable("result", result);
+                req_log.ok();
+                res.json(result);
+            },
+            fail: (err) => {
+                // internal error (not normal fail)
+                req_log.error(err);
+                res.status(500);
+                res.end(err.message);
+            }
+        });
+    });
+
+    router.post("/library/x-jmeter-cloud-store/target-server-get-raw", (req, res) => {
+        const input = req.body;
+        const req_log = log.sub("post.library.x-jmeter-cloud-store.target-server-get-raw");
+        handle_rpc_target_server_get_raw(req_log, input, {
+            invalid_input: (err) => {
+                // bad request
+                req_log.error(err);
+                res.status(400);
+                res.end(err.message);
+            },
+            ok: (result) => {
+                // include normal fail case
+                req_log.variable("result", result);
+                req_log.ok();
+                res.json(result);
+            },
+            fail: (err) => {
+                // internal error (not normal fail)
+                req_log.error(err);
+                res.status(500);
+                res.end(err.message);
+            }
+        });
+    });
+
+    router.post("/library/x-jmeter-cloud-store/target-server-set-raw", (req, res) => {
+        const input = req.body;
+        const req_log = log.sub("post.library.x-jmeter-cloud-store.target-server-set-raw");
+        handle_rpc_target_server_set_raw(req_log, input, {
+            invalid_input: (err) => {
+                // bad request
+                req_log.error(err);
+                res.status(400);
+                res.end(err.message);
+            },
+            ok: (result) => {
+                // include normal fail case
+                req_log.variable("result", result);
+                req_log.ok();
+                res.json(result);
+            },
+            fail: (err) => {
+                // internal error (not normal fail)
+                req_log.error(err);
+                res.status(500);
+                res.end(err.message);
+            }
+        });
+    });
+
+    router.post("/library/x-jmeter-cloud-store/target-server-ls", (req, res) => {
+        const input = req.body;
+        const req_log = log.sub("post.library.x-jmeter-cloud-store.target-server-ls");
+        handle_rpc_target_server_ls(req_log, input, {
+            invalid_input: (err) => {
+                // bad request
+                req_log.error(err);
+                res.status(400);
+                res.end(err.message);
+            },
+            ok: (result) => {
+                // include normal fail case
+                req_log.variable("result", result);
+                req_log.ok();
+                res.json(result);
+            },
+            fail: (err) => {
+                // internal error (not normal fail)
+                req_log.error(err);
+                res.status(500);
+                res.end(err.message);
+            }
+        });
+    });
+
+    router.post("/library/x-jmeter-cloud-store/target-server-add", (req, res) => {
+        const input = req.body;
+        const req_log = log.sub("post.library.x-jmeter-cloud-store.target-server-add");
+        handle_rpc_target_server_add(req_log, input, {
+            invalid_input: (err) => {
+                // bad request
+                req_log.error(err);
+                res.status(400);
+                res.end(err.message);
+            },
+            ok: (result) => {
+                // include normal fail case
+                req_log.variable("result", result);
+                req_log.ok();
+                res.json(result);
+            },
+            fail: (err) => {
+                // internal error (not normal fail)
+                req_log.error(err);
+                res.status(500);
+                res.end(err.message);
+            }
+        });
+    });
+
+    router.post("/library/x-jmeter-cloud-store/target-server-del", (req, res) => {
+        const input = req.body;
+        const req_log = log.sub("post.library.x-jmeter-cloud-store.target-server-del");
+        handle_rpc_target_server_del(req_log, input, {
+            invalid_input: (err) => {
+                // bad request
+                req_log.error(err);
+                res.status(400);
+                res.end(err.message);
+            },
+            ok: (result) => {
+                // include normal fail case
+                req_log.variable("result", result);
+                req_log.ok();
+                res.json(result);
+            },
+            fail: (err) => {
+                // internal error (not normal fail)
+                req_log.error(err);
+                res.status(500);
+                res.end(err.message);
+            }
+        });
+    });
+
+    router.post("/library/x-jmeter-cloud-store/target-server-get", (req, res) => {
+        const input = req.body;
+        const req_log = log.sub("post.library.x-jmeter-cloud-store.target-server-get");
+        handle_rpc_target_server_get(req_log, input, {
+            invalid_input: (err) => {
+                // bad request
+                req_log.error(err);
+                res.status(400);
+                res.end(err.message);
+            },
+            ok: (result) => {
+                // include normal fail case
+                req_log.variable("result", result);
+                req_log.ok();
+                res.json(result);
+            },
+            fail: (err) => {
+                // internal error (not normal fail)
+                req_log.error(err);
+                res.status(500);
+                res.end(err.message);
+            }
+        });
+    });
+
+    router.post("/library/x-jmeter-cloud-store/target-server-set", (req, res) => {
+        const input = req.body;
+        const req_log = log.sub("post.library.x-jmeter-cloud-store.target-server-set");
+        handle_rpc_target_server_set(req_log, input, {
+            invalid_input: (err) => {
+                // bad request
+                req_log.error(err);
+                res.status(400);
+                res.end(err.message);
+            },
+            ok: (result) => {
+                // include normal fail case
+                req_log.variable("result", result);
+                req_log.ok();
+                res.json(result);
+            },
+            fail: (err) => {
+                // internal error (not normal fail)
+                req_log.error(err);
+                res.status(500);
+                res.end(err.message);
+            }
+        });
+    });
+
+    router.post("/library/x-jmeter-cloud-store/target-server-upgrade", (req, res) => {
+        const input = req.body;
+        const req_log = log.sub("post.library.x-jmeter-cloud-store.target-server-upgrade");
+        handle_rpc_target_server_upgrade(req_log, input, {
             invalid_input: (err) => {
                 // bad request
                 req_log.error(err);

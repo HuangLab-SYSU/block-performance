@@ -20,3 +20,6 @@ export * from "./slave-server-get/export.js";
 export * from "./slave-server-install/export.js";
 export * from "./slave-server-remove/export.js";
 export * from "./slave-server-run/export.js";
+export * from "./target-server-create/export.js";
+export * from "./target-server-get/export.js";
+export * from "./target-server-remove/export.js";

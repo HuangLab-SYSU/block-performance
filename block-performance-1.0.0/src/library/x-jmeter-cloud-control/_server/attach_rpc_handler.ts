@@ -22,6 +22,9 @@ import { handle_rpc_slave_server_get } from "../slave-server-get/rpc/handle.js";
 import { handle_rpc_slave_server_install } from "../slave-server-install/rpc/handle.js";
 import { handle_rpc_slave_server_remove } from "../slave-server-remove/rpc/handle.js";
 import { handle_rpc_slave_server_run } from "../slave-server-run/rpc/handle.js";
+import { handle_rpc_target_server_create } from "../target-server-create/rpc/handle.js";
+import { handle_rpc_target_server_get } from "../target-server-get/rpc/handle.js";
+import { handle_rpc_target_server_remove } from "../target-server-remove/rpc/handle.js";
 
 export function attach_rpc_handler(plog: Logger, opt: { router: express.Router }) {
     const log = plog.sub("server.attach_rpc_handler");
@@ -531,6 +534,81 @@ export function attach_rpc_handler(plog: Logger, opt: { router: express.Router }
         const input = req.body;
         const req_log = log.sub("post.library.x-jmeter-cloud-control.slave-server-run");
         handle_rpc_slave_server_run(req_log, input, {
+            invalid_input: (err) => {
+                // bad request
+                req_log.error(err);
+                res.status(400);
+                res.end(err.message);
+            },
+            ok: (result) => {
+                // include normal fail case
+                req_log.variable("result", result);
+                req_log.ok();
+                res.json(result);
+            },
+            fail: (err) => {
+                // internal error (not normal fail)
+                req_log.error(err);
+                res.status(500);
+                res.end(err.message);
+            }
+        });
+    });
+
+    router.post("/library/x-jmeter-cloud-control/target-server-create", (req, res) => {
+        const input = req.body;
+        const req_log = log.sub("post.library.x-jmeter-cloud-control.target-server-create");
+        handle_rpc_target_server_create(req_log, input, {
+            invalid_input: (err) => {
+                // bad request
+                req_log.error(err);
+                res.status(400);
+                res.end(err.message);
+            },
+            ok: (result) => {
+                // include normal fail case
+                req_log.variable("result", result);
+                req_log.ok();
+                res.json(result);
+            },
+            fail: (err) => {
+                // internal error (not normal fail)
+                req_log.error(err);
+                res.status(500);
+                res.end(err.message);
+            }
+        });
+    });
+
+    router.post("/library/x-jmeter-cloud-control/target-server-get", (req, res) => {
+        const input = req.body;
+        const req_log = log.sub("post.library.x-jmeter-cloud-control.target-server-get");
+        handle_rpc_target_server_get(req_log, input, {
+            invalid_input: (err) => {
+                // bad request
+                req_log.error(err);
+                res.status(400);
+                res.end(err.message);
+            },
+            ok: (result) => {
+                // include normal fail case
+                req_log.variable("result", result);
+                req_log.ok();
+                res.json(result);
+            },
+            fail: (err) => {
+                // internal error (not normal fail)
+                req_log.error(err);
+                res.status(500);
+                res.end(err.message);
+            }
+        });
+    });
+
+    router.post("/library/x-jmeter-cloud-control/target-server-remove", (req, res) => {
+        const input = req.body;
+        const req_log = log.sub("post.library.x-jmeter-cloud-control.target-server-remove");
+        handle_rpc_target_server_remove(req_log, input, {
             invalid_input: (err) => {
                 // bad request
                 req_log.error(err);

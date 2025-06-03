@@ -5,6 +5,7 @@ import { Input, Output, Callback } from "./type.js";
 import { credential_upgrade } from "../credential-upgrade/export.js";
 import { master_server_upgrade } from "../master-server-upgrade/export.js";
 import { slave_server_upgrade } from "../slave-server-upgrade/export.js";
+import { target_server_upgrade } from "../target-server-upgrade/export.js";
 
 export async function core<R>(log: Logger, input: Input, cb: Callback<R>): Promise<R> {
     await credential_upgrade(
@@ -34,6 +35,19 @@ export async function core<R>(log: Logger, input: Input, cb: Callback<R>): Promi
     );
 
     await slave_server_upgrade(
+        log,
+        {},
+        {
+            ok: (output) => {
+                return output;
+            },
+            fail: (err) => {
+                throw err;
+            }
+        }
+    );
+
+    await target_server_upgrade(
         log,
         {},
         {

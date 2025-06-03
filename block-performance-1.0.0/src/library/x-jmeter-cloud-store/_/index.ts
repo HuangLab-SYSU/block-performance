@@ -8,3 +8,6 @@ export const master_server = _master_server;
 
 import * as _slave_server from "./slave-server/index.js";
 export const slave_server = _slave_server;
+
+import * as _target_server from "./target-server/index.js";
+export const target_server = _target_server;
