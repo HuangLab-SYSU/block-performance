@@ -4,10 +4,10 @@ import { Logger } from "../../../myutils/logger.js";
 import * as http from "node:http";
 import * as https from "node:https";
 
-export function attach_proxy_handler(plog: Logger, opt: { exp_app: express.Express }) {
+export function attach_proxy_handler(plog: Logger, opt: { router: express.Router }) {
     const log = plog.sub("server.attach_proxy_handler");
-    const { exp_app } = opt;
-    exp_app.get("/_proxy_/", (req, res) => {
+    const { router } = opt;
+    router.get("/_proxy_/", (req, res) => {
         const query_url = req.query.url;
         log.variable("query_url", query_url);
         if (!query_url) {

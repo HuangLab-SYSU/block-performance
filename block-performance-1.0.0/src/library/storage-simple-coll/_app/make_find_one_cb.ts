@@ -1,6 +1,6 @@
 import { Logger } from "../../../myutils/logger.js";
 import { IdItem } from "../_type/index.js";
-import { collection_get } from "../collection-get/export.js";
+import { collection_item_ls } from "../collection-item-ls/export.js";
 
 export interface MakeFindOneCallback<T, R> {
     none: () => R;
@@ -20,7 +20,7 @@ export function make_find_one_cb<T extends IdItem>(opt: { namespace: string; key
     ): Promise<R> {
         const log = plog.sub(`store.${namespace}.${key}.find_one`);
         log.variable("treat_more_than_one_error", opts.treat_more_than_one_error ? true : false);
-        return await collection_get(
+        return await collection_item_ls(
             log,
             {
                 namespace,

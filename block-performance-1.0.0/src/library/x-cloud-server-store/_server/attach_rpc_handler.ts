@@ -23,11 +23,11 @@ import { handle_rpc_aws_lightsail_instance_set } from "../aws-lightsail-instance
 import { handle_rpc_aws_lightsail_instance_upgrade } from "../aws-lightsail-instance-upgrade/rpc/handle.js";
 import { handle_rpc_upgrade } from "../upgrade/rpc/handle.js";
 
-export function attach_rpc_handler(plog: Logger, opt: { exp_app: express.Express }) {
+export function attach_rpc_handler(plog: Logger, opt: { router: express.Router }) {
     const log = plog.sub("server.attach_rpc_handler");
-    const { exp_app } = opt;
+    const { router } = opt;
 
-    exp_app.post("/library/x-cloud-server-store/admin-ls-raw", (req, res) => {
+    router.post("/library/x-cloud-server-store/admin-ls-raw", (req, res) => {
         const input = req.body;
         const req_log = log.sub("post.library.x-cloud-server-store.admin-ls-raw");
         handle_rpc_admin_ls_raw(req_log, input, {
@@ -52,7 +52,7 @@ export function attach_rpc_handler(plog: Logger, opt: { exp_app: express.Express
         });
     });
 
-    exp_app.post("/library/x-cloud-server-store/admin-add-raw", (req, res) => {
+    router.post("/library/x-cloud-server-store/admin-add-raw", (req, res) => {
         const input = req.body;
         const req_log = log.sub("post.library.x-cloud-server-store.admin-add-raw");
         handle_rpc_admin_add_raw(req_log, input, {
@@ -77,7 +77,7 @@ export function attach_rpc_handler(plog: Logger, opt: { exp_app: express.Express
         });
     });
 
-    exp_app.post("/library/x-cloud-server-store/admin-get-raw", (req, res) => {
+    router.post("/library/x-cloud-server-store/admin-get-raw", (req, res) => {
         const input = req.body;
         const req_log = log.sub("post.library.x-cloud-server-store.admin-get-raw");
         handle_rpc_admin_get_raw(req_log, input, {
@@ -102,7 +102,7 @@ export function attach_rpc_handler(plog: Logger, opt: { exp_app: express.Express
         });
     });
 
-    exp_app.post("/library/x-cloud-server-store/admin-set-raw", (req, res) => {
+    router.post("/library/x-cloud-server-store/admin-set-raw", (req, res) => {
         const input = req.body;
         const req_log = log.sub("post.library.x-cloud-server-store.admin-set-raw");
         handle_rpc_admin_set_raw(req_log, input, {
@@ -127,7 +127,7 @@ export function attach_rpc_handler(plog: Logger, opt: { exp_app: express.Express
         });
     });
 
-    exp_app.post("/library/x-cloud-server-store/admin-ls", (req, res) => {
+    router.post("/library/x-cloud-server-store/admin-ls", (req, res) => {
         const input = req.body;
         const req_log = log.sub("post.library.x-cloud-server-store.admin-ls");
         handle_rpc_admin_ls(req_log, input, {
@@ -152,7 +152,7 @@ export function attach_rpc_handler(plog: Logger, opt: { exp_app: express.Express
         });
     });
 
-    exp_app.post("/library/x-cloud-server-store/admin-add", (req, res) => {
+    router.post("/library/x-cloud-server-store/admin-add", (req, res) => {
         const input = req.body;
         const req_log = log.sub("post.library.x-cloud-server-store.admin-add");
         handle_rpc_admin_add(req_log, input, {
@@ -177,7 +177,7 @@ export function attach_rpc_handler(plog: Logger, opt: { exp_app: express.Express
         });
     });
 
-    exp_app.post("/library/x-cloud-server-store/admin-del", (req, res) => {
+    router.post("/library/x-cloud-server-store/admin-del", (req, res) => {
         const input = req.body;
         const req_log = log.sub("post.library.x-cloud-server-store.admin-del");
         handle_rpc_admin_del(req_log, input, {
@@ -202,7 +202,7 @@ export function attach_rpc_handler(plog: Logger, opt: { exp_app: express.Express
         });
     });
 
-    exp_app.post("/library/x-cloud-server-store/admin-get", (req, res) => {
+    router.post("/library/x-cloud-server-store/admin-get", (req, res) => {
         const input = req.body;
         const req_log = log.sub("post.library.x-cloud-server-store.admin-get");
         handle_rpc_admin_get(req_log, input, {
@@ -227,7 +227,7 @@ export function attach_rpc_handler(plog: Logger, opt: { exp_app: express.Express
         });
     });
 
-    exp_app.post("/library/x-cloud-server-store/admin-set", (req, res) => {
+    router.post("/library/x-cloud-server-store/admin-set", (req, res) => {
         const input = req.body;
         const req_log = log.sub("post.library.x-cloud-server-store.admin-set");
         handle_rpc_admin_set(req_log, input, {
@@ -252,7 +252,7 @@ export function attach_rpc_handler(plog: Logger, opt: { exp_app: express.Express
         });
     });
 
-    exp_app.post("/library/x-cloud-server-store/admin-upgrade", (req, res) => {
+    router.post("/library/x-cloud-server-store/admin-upgrade", (req, res) => {
         const input = req.body;
         const req_log = log.sub("post.library.x-cloud-server-store.admin-upgrade");
         handle_rpc_admin_upgrade(req_log, input, {
@@ -277,7 +277,7 @@ export function attach_rpc_handler(plog: Logger, opt: { exp_app: express.Express
         });
     });
 
-    exp_app.post("/library/x-cloud-server-store/aws-lightsail-instance-ls-raw", (req, res) => {
+    router.post("/library/x-cloud-server-store/aws-lightsail-instance-ls-raw", (req, res) => {
         const input = req.body;
         const req_log = log.sub("post.library.x-cloud-server-store.aws-lightsail-instance-ls-raw");
         handle_rpc_aws_lightsail_instance_ls_raw(req_log, input, {
@@ -302,7 +302,7 @@ export function attach_rpc_handler(plog: Logger, opt: { exp_app: express.Express
         });
     });
 
-    exp_app.post("/library/x-cloud-server-store/aws-lightsail-instance-add-raw", (req, res) => {
+    router.post("/library/x-cloud-server-store/aws-lightsail-instance-add-raw", (req, res) => {
         const input = req.body;
         const req_log = log.sub("post.library.x-cloud-server-store.aws-lightsail-instance-add-raw");
         handle_rpc_aws_lightsail_instance_add_raw(req_log, input, {
@@ -327,7 +327,7 @@ export function attach_rpc_handler(plog: Logger, opt: { exp_app: express.Express
         });
     });
 
-    exp_app.post("/library/x-cloud-server-store/aws-lightsail-instance-get-raw", (req, res) => {
+    router.post("/library/x-cloud-server-store/aws-lightsail-instance-get-raw", (req, res) => {
         const input = req.body;
         const req_log = log.sub("post.library.x-cloud-server-store.aws-lightsail-instance-get-raw");
         handle_rpc_aws_lightsail_instance_get_raw(req_log, input, {
@@ -352,7 +352,7 @@ export function attach_rpc_handler(plog: Logger, opt: { exp_app: express.Express
         });
     });
 
-    exp_app.post("/library/x-cloud-server-store/aws-lightsail-instance-set-raw", (req, res) => {
+    router.post("/library/x-cloud-server-store/aws-lightsail-instance-set-raw", (req, res) => {
         const input = req.body;
         const req_log = log.sub("post.library.x-cloud-server-store.aws-lightsail-instance-set-raw");
         handle_rpc_aws_lightsail_instance_set_raw(req_log, input, {
@@ -377,7 +377,7 @@ export function attach_rpc_handler(plog: Logger, opt: { exp_app: express.Express
         });
     });
 
-    exp_app.post("/library/x-cloud-server-store/aws-lightsail-instance-ls", (req, res) => {
+    router.post("/library/x-cloud-server-store/aws-lightsail-instance-ls", (req, res) => {
         const input = req.body;
         const req_log = log.sub("post.library.x-cloud-server-store.aws-lightsail-instance-ls");
         handle_rpc_aws_lightsail_instance_ls(req_log, input, {
@@ -402,7 +402,7 @@ export function attach_rpc_handler(plog: Logger, opt: { exp_app: express.Express
         });
     });
 
-    exp_app.post("/library/x-cloud-server-store/aws-lightsail-instance-add", (req, res) => {
+    router.post("/library/x-cloud-server-store/aws-lightsail-instance-add", (req, res) => {
         const input = req.body;
         const req_log = log.sub("post.library.x-cloud-server-store.aws-lightsail-instance-add");
         handle_rpc_aws_lightsail_instance_add(req_log, input, {
@@ -427,7 +427,7 @@ export function attach_rpc_handler(plog: Logger, opt: { exp_app: express.Express
         });
     });
 
-    exp_app.post("/library/x-cloud-server-store/aws-lightsail-instance-del", (req, res) => {
+    router.post("/library/x-cloud-server-store/aws-lightsail-instance-del", (req, res) => {
         const input = req.body;
         const req_log = log.sub("post.library.x-cloud-server-store.aws-lightsail-instance-del");
         handle_rpc_aws_lightsail_instance_del(req_log, input, {
@@ -452,7 +452,7 @@ export function attach_rpc_handler(plog: Logger, opt: { exp_app: express.Express
         });
     });
 
-    exp_app.post("/library/x-cloud-server-store/aws-lightsail-instance-get", (req, res) => {
+    router.post("/library/x-cloud-server-store/aws-lightsail-instance-get", (req, res) => {
         const input = req.body;
         const req_log = log.sub("post.library.x-cloud-server-store.aws-lightsail-instance-get");
         handle_rpc_aws_lightsail_instance_get(req_log, input, {
@@ -477,7 +477,7 @@ export function attach_rpc_handler(plog: Logger, opt: { exp_app: express.Express
         });
     });
 
-    exp_app.post("/library/x-cloud-server-store/aws-lightsail-instance-set", (req, res) => {
+    router.post("/library/x-cloud-server-store/aws-lightsail-instance-set", (req, res) => {
         const input = req.body;
         const req_log = log.sub("post.library.x-cloud-server-store.aws-lightsail-instance-set");
         handle_rpc_aws_lightsail_instance_set(req_log, input, {
@@ -502,7 +502,7 @@ export function attach_rpc_handler(plog: Logger, opt: { exp_app: express.Express
         });
     });
 
-    exp_app.post("/library/x-cloud-server-store/aws-lightsail-instance-upgrade", (req, res) => {
+    router.post("/library/x-cloud-server-store/aws-lightsail-instance-upgrade", (req, res) => {
         const input = req.body;
         const req_log = log.sub("post.library.x-cloud-server-store.aws-lightsail-instance-upgrade");
         handle_rpc_aws_lightsail_instance_upgrade(req_log, input, {
@@ -527,7 +527,7 @@ export function attach_rpc_handler(plog: Logger, opt: { exp_app: express.Express
         });
     });
 
-    exp_app.post("/library/x-cloud-server-store/upgrade", (req, res) => {
+    router.post("/library/x-cloud-server-store/upgrade", (req, res) => {
         const input = req.body;
         const req_log = log.sub("post.library.x-cloud-server-store.upgrade");
         handle_rpc_upgrade(req_log, input, {

@@ -7,6 +7,7 @@ export { make_input as make_instance_public_ports_put_input, make_output_ok as m
 import { core } from "./core.js";
 import { Logger } from "../../../myutils/logger.js";
 import { Input, Output, Callback } from "./type.js";
+import { logger_config } from "../_logger/index.js";
 
 // [Note]
 // Some libraries redefine the Input type with additional fields that cannot yet be expressed in the meta-type system.
@@ -16,9 +17,12 @@ type InputEx = Parameters<typeof core>["1"];
 
 export async function instance_public_ports_put<R>(plog: Logger, input: InputEx, cb: Callback<R>): Promise<R> {
     const log = plog.sub_library_function("aws-lightsail", "instance-public-ports-put");
+    if (logger_config.disable_all) {
+        log.enable(false);
+    }
     try {
         log.variable("input", input);
-        return core(log, input, {
+        return await core(log, input, {
             ok: (output) => {
                 log.println("ok");
                 log.variable("output", output);

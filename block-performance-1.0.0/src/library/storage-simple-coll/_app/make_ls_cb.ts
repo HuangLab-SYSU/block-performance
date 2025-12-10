@@ -1,7 +1,7 @@
 import { Logger } from "../../../myutils/logger.js";
 import { IdItem } from "../_type/index.js";
-import { ListEngine } from "../_deprecated/app/_/index.js"; // FIXME
-import { collection_get } from "../collection-get/export.js";
+import { ListEngine } from "./_/index.js"; // FIXME
+import { collection_item_ls } from "../collection-item-ls/export.js";
 
 export interface MakeLsCallback<T extends IdItem, R> {
     empty: () => R;
@@ -40,7 +40,7 @@ export function make_ls_cb<T extends IdItem>(opt: {
         if (opts.id_list && opts.id_list.length === 0) {
             return cb.empty();
         }
-        return await collection_get(
+        return await collection_item_ls(
             log,
             {
                 namespace,

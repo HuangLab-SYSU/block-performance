@@ -98,7 +98,7 @@ export async function core<R>(log: Logger, input: Input, cb: Callback<R>): Promi
         name: input.name,
         version: input.version,
         engines: {
-            node: ">=10.12.0"
+            node: ">=22.0.0"
         },
         scripts: {
             build: "tsc --build",
@@ -202,7 +202,13 @@ export async function core<R>(log: Logger, input: Input, cb: Callback<R>): Promi
 
     await dockerfile_write(
         log,
-        { name: input.name, version: input.version, with_customize_dir: input.customize_file_list.length > 0, output_dir: input.output_dir },
+        {
+            name: input.name,
+            version: input.version,
+            with_customize_dir: input.customize_file_list.length > 0,
+            custom_build_steps: input.custom_build_steps,
+            output_dir: input.output_dir
+        },
         {
             ok: () => {
                 // ignore

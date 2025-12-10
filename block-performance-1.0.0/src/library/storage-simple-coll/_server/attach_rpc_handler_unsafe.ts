@@ -2,11 +2,11 @@
 import express from "express";
 import { Logger } from "../../../myutils/logger.js";
 
-export function attach_rpc_handler_unsafe(plog: Logger, opt: { exp_app: express.Express }) {
+export function attach_rpc_handler_unsafe(plog: Logger, opt: { router: express.Router }) {
     const log = plog.sub("server.attach_rpc_handler_unsafe");
-    const { exp_app } = opt;
+    const { router } = opt;
     // unsafe!
-    exp_app.post("/library/:lib_name/:fun_name", (req, res) => {
+    router.post("/library/:lib_name/:fun_name", (req, res) => {
         const { lib_name, fun_name } = req.params;
         const req_log = log.sub(`post-unsafe.library.${lib_name}.${fun_name}`);
         req_log.variable("params", req.params);

@@ -23,6 +23,7 @@ export const src_meta_system = path.resolve(src, "meta-system");
 export const dist_meta_system = path.resolve(dist, "meta-system");
 export const src_project = path.resolve(src, "x-project");
 export const dist_project = path.resolve(dist, "x-project");
+export const node_modules_bin = path.resolve(root, "node_modules/.bin");
 export function meta_library(name: string) {
     const meta_library_src = path.resolve(src, "meta-library");
     const meta_library_dist = path.resolve(dist, "meta-library");
@@ -38,7 +39,8 @@ export function library(name: string) {
     const library_dist = path.resolve(dist, "library");
     return {
         src: path.resolve(library_src, name),
-        dist: path.resolve(library_dist, name)
+        dist: path.resolve(library_dist, name),
+        dist_webroot: path.resolve(library_dist, name, "_webroot")
     };
 }
 export function system(name: string) {
@@ -98,6 +100,11 @@ export const simple_kv = path.resolve(data, "simple-kv");
 export const simple_coll = path.resolve(data, "simple-coll");
 export const simple_stream = path.resolve(data, "simple-stream");
 fs.mkdirSync(simple_stream, { recursive: true });
+export const vfs_root = path.resolve(data, "vfs");
+fs.mkdirSync(vfs_root, { recursive: true });
+export function vfs(name: string) {
+    return path.resolve(vfs_root, name);
+}
 export const web_file = path.resolve(data, "web-file");
 export const temp = path.resolve(data, "temp");
 export const temp_lisp = path.resolve(temp, "lisp");

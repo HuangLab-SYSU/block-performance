@@ -18,6 +18,7 @@ export async function core<R>(log: Logger, input: Input, cb: Callback<R>): Promi
             library_list: input.library_list,
             npm_script: input.npm_script,
             customize_file_list: input.customize_file_list,
+            custom_build_steps: input.custom_build_steps,
             output_dir: temp_dir
         },
         {

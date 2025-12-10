@@ -1,0 +1,12 @@
+{
+    "extends": "../../../tsconfig.base.json",
+    "compilerOptions": {
+        "outDir": "../../../dist/library/semver",
+        "rootDir": "."
+    },
+    "references": [
+        {
+            "path": "../../myutils"
+        }
+    ]
+}

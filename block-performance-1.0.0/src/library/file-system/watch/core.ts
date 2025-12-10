@@ -31,7 +31,7 @@ export async function core<R>(
             e_log.variable("path", path);
             if (input.callback) {
                 try {
-                    input.callback(event, path);
+                    input.callback(event, path as any);
                 } catch (err) {
                     e_log.warn(err);
                 }

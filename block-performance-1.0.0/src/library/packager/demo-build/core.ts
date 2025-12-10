@@ -22,6 +22,7 @@ export async function core<R>(log: Logger, input: Input, cb: Callback<R>): Promi
                     json_data: { name: "test" }
                 }
             ],
+            custom_build_steps: [],
             output_dir: input.output_dir
         },
         {

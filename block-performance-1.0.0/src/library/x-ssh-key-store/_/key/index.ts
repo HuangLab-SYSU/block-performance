@@ -12,9 +12,9 @@ import { Key } from "./type/index.js";
 
 export const ls = _.make_ls_cb<Key>(config);
 export const add = _.make_add_cb<Key>(config);
-export const del_matched = _.make_del_matched_cb<Key>(config);
+// export const del_matched = _.make_del_matched_cb<Key>(config);
 export const del = _.make_del_cb<Key>(config);
 export const get = _.make_get_cb<Key>(config);
 export const set = _.make_set_cb<Key>(config);
-export const update = _.make_update_cb<Key>(config);
-export const find_one = _.make_find_one_cb<Key>(config);
+// export const update = _.make_update_cb<Key>(config);
+// export const find_one = _.make_find_one_cb<Key>(config);

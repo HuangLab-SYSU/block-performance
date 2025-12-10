@@ -6,27 +6,32 @@ import { handle_rpc_directory_copy } from "../directory-copy/rpc/handle.js";
 import { handle_rpc_directory_create } from "../directory-create/rpc/handle.js";
 import { handle_rpc_directory_delete } from "../directory-delete/rpc/handle.js";
 import { handle_rpc_directory_exist } from "../directory-exist/rpc/handle.js";
+import { handle_rpc_directory_ls } from "../directory-ls/rpc/handle.js";
 import { handle_rpc_directory_rename } from "../directory-rename/rpc/handle.js";
 import { handle_rpc_file_copy } from "../file-copy/rpc/handle.js";
 import { handle_rpc_file_delete } from "../file-delete/rpc/handle.js";
 import { handle_rpc_file_exist } from "../file-exist/rpc/handle.js";
 import { handle_rpc_file_ls } from "../file-ls/rpc/handle.js";
+import { handle_rpc_file_read_base64 } from "../file-read-base64/rpc/handle.js";
 import { handle_rpc_file_read_hex } from "../file-read-hex/rpc/handle.js";
+import { handle_rpc_file_read_json } from "../file-read-json/rpc/handle.js";
 import { handle_rpc_file_read_text } from "../file-read-text/rpc/handle.js";
 import { handle_rpc_file_rename } from "../file-rename/rpc/handle.js";
 import { handle_rpc_file_replace_text } from "../file-replace-text/rpc/handle.js";
+import { handle_rpc_file_write_base64 } from "../file-write-base64/rpc/handle.js";
 import { handle_rpc_file_write_hex } from "../file-write-hex/rpc/handle.js";
+import { handle_rpc_file_write_json } from "../file-write-json/rpc/handle.js";
 import { handle_rpc_file_write_text } from "../file-write-text/rpc/handle.js";
 import { handle_rpc_path_exist } from "../path-exist/rpc/handle.js";
 import { handle_rpc_temp_path_resolve } from "../temp-path-resolve/rpc/handle.js";
 import { handle_rpc_unwatch } from "../unwatch/rpc/handle.js";
 import { handle_rpc_watch } from "../watch/rpc/handle.js";
 
-export function attach_rpc_handler(plog: Logger, opt: { exp_app: express.Express }) {
+export function attach_rpc_handler(plog: Logger, opt: { router: express.Router }) {
     const log = plog.sub("server.attach_rpc_handler");
-    const { exp_app } = opt;
+    const { router } = opt;
 
-    exp_app.post("/library/file-system/chmod", (req, res) => {
+    router.post("/library/file-system/chmod", (req, res) => {
         const input = req.body;
         const req_log = log.sub("post.library.file-system.chmod");
         handle_rpc_chmod(req_log, input, {
@@ -51,7 +56,7 @@ export function attach_rpc_handler(plog: Logger, opt: { exp_app: express.Express
         });
     });
 
-    exp_app.post("/library/file-system/directory-copy", (req, res) => {
+    router.post("/library/file-system/directory-copy", (req, res) => {
         const input = req.body;
         const req_log = log.sub("post.library.file-system.directory-copy");
         handle_rpc_directory_copy(req_log, input, {
@@ -76,7 +81,7 @@ export function attach_rpc_handler(plog: Logger, opt: { exp_app: express.Express
         });
     });
 
-    exp_app.post("/library/file-system/directory-create", (req, res) => {
+    router.post("/library/file-system/directory-create", (req, res) => {
         const input = req.body;
         const req_log = log.sub("post.library.file-system.directory-create");
         handle_rpc_directory_create(req_log, input, {
@@ -101,7 +106,7 @@ export function attach_rpc_handler(plog: Logger, opt: { exp_app: express.Express
         });
     });
 
-    exp_app.post("/library/file-system/directory-delete", (req, res) => {
+    router.post("/library/file-system/directory-delete", (req, res) => {
         const input = req.body;
         const req_log = log.sub("post.library.file-system.directory-delete");
         handle_rpc_directory_delete(req_log, input, {
@@ -126,7 +131,7 @@ export function attach_rpc_handler(plog: Logger, opt: { exp_app: express.Express
         });
     });
 
-    exp_app.post("/library/file-system/directory-exist", (req, res) => {
+    router.post("/library/file-system/directory-exist", (req, res) => {
         const input = req.body;
         const req_log = log.sub("post.library.file-system.directory-exist");
         handle_rpc_directory_exist(req_log, input, {
@@ -151,7 +156,32 @@ export function attach_rpc_handler(plog: Logger, opt: { exp_app: express.Express
         });
     });
 
-    exp_app.post("/library/file-system/directory-rename", (req, res) => {
+    router.post("/library/file-system/directory-ls", (req, res) => {
+        const input = req.body;
+        const req_log = log.sub("post.library.file-system.directory-ls");
+        handle_rpc_directory_ls(req_log, input, {
+            invalid_input: (err) => {
+                // bad request
+                req_log.error(err);
+                res.status(400);
+                res.end(err.message);
+            },
+            ok: (result) => {
+                // include normal fail case
+                req_log.variable("result", result);
+                req_log.ok();
+                res.json(result);
+            },
+            fail: (err) => {
+                // internal error (not normal fail)
+                req_log.error(err);
+                res.status(500);
+                res.end(err.message);
+            }
+        });
+    });
+
+    router.post("/library/file-system/directory-rename", (req, res) => {
         const input = req.body;
         const req_log = log.sub("post.library.file-system.directory-rename");
         handle_rpc_directory_rename(req_log, input, {
@@ -176,7 +206,7 @@ export function attach_rpc_handler(plog: Logger, opt: { exp_app: express.Express
         });
     });
 
-    exp_app.post("/library/file-system/file-copy", (req, res) => {
+    router.post("/library/file-system/file-copy", (req, res) => {
         const input = req.body;
         const req_log = log.sub("post.library.file-system.file-copy");
         handle_rpc_file_copy(req_log, input, {
@@ -201,7 +231,7 @@ export function attach_rpc_handler(plog: Logger, opt: { exp_app: express.Express
         });
     });
 
-    exp_app.post("/library/file-system/file-delete", (req, res) => {
+    router.post("/library/file-system/file-delete", (req, res) => {
         const input = req.body;
         const req_log = log.sub("post.library.file-system.file-delete");
         handle_rpc_file_delete(req_log, input, {
@@ -226,7 +256,7 @@ export function attach_rpc_handler(plog: Logger, opt: { exp_app: express.Express
         });
     });
 
-    exp_app.post("/library/file-system/file-exist", (req, res) => {
+    router.post("/library/file-system/file-exist", (req, res) => {
         const input = req.body;
         const req_log = log.sub("post.library.file-system.file-exist");
         handle_rpc_file_exist(req_log, input, {
@@ -251,7 +281,7 @@ export function attach_rpc_handler(plog: Logger, opt: { exp_app: express.Express
         });
     });
 
-    exp_app.post("/library/file-system/file-ls", (req, res) => {
+    router.post("/library/file-system/file-ls", (req, res) => {
         const input = req.body;
         const req_log = log.sub("post.library.file-system.file-ls");
         handle_rpc_file_ls(req_log, input, {
@@ -276,7 +306,32 @@ export function attach_rpc_handler(plog: Logger, opt: { exp_app: express.Express
         });
     });
 
-    exp_app.post("/library/file-system/file-read-hex", (req, res) => {
+    router.post("/library/file-system/file-read-base64", (req, res) => {
+        const input = req.body;
+        const req_log = log.sub("post.library.file-system.file-read-base64");
+        handle_rpc_file_read_base64(req_log, input, {
+            invalid_input: (err) => {
+                // bad request
+                req_log.error(err);
+                res.status(400);
+                res.end(err.message);
+            },
+            ok: (result) => {
+                // include normal fail case
+                req_log.variable("result", result);
+                req_log.ok();
+                res.json(result);
+            },
+            fail: (err) => {
+                // internal error (not normal fail)
+                req_log.error(err);
+                res.status(500);
+                res.end(err.message);
+            }
+        });
+    });
+
+    router.post("/library/file-system/file-read-hex", (req, res) => {
         const input = req.body;
         const req_log = log.sub("post.library.file-system.file-read-hex");
         handle_rpc_file_read_hex(req_log, input, {
@@ -301,7 +356,32 @@ export function attach_rpc_handler(plog: Logger, opt: { exp_app: express.Express
         });
     });
 
-    exp_app.post("/library/file-system/file-read-text", (req, res) => {
+    router.post("/library/file-system/file-read-json", (req, res) => {
+        const input = req.body;
+        const req_log = log.sub("post.library.file-system.file-read-json");
+        handle_rpc_file_read_json(req_log, input, {
+            invalid_input: (err) => {
+                // bad request
+                req_log.error(err);
+                res.status(400);
+                res.end(err.message);
+            },
+            ok: (result) => {
+                // include normal fail case
+                req_log.variable("result", result);
+                req_log.ok();
+                res.json(result);
+            },
+            fail: (err) => {
+                // internal error (not normal fail)
+                req_log.error(err);
+                res.status(500);
+                res.end(err.message);
+            }
+        });
+    });
+
+    router.post("/library/file-system/file-read-text", (req, res) => {
         const input = req.body;
         const req_log = log.sub("post.library.file-system.file-read-text");
         handle_rpc_file_read_text(req_log, input, {
@@ -326,7 +406,7 @@ export function attach_rpc_handler(plog: Logger, opt: { exp_app: express.Express
         });
     });
 
-    exp_app.post("/library/file-system/file-rename", (req, res) => {
+    router.post("/library/file-system/file-rename", (req, res) => {
         const input = req.body;
         const req_log = log.sub("post.library.file-system.file-rename");
         handle_rpc_file_rename(req_log, input, {
@@ -351,7 +431,7 @@ export function attach_rpc_handler(plog: Logger, opt: { exp_app: express.Express
         });
     });
 
-    exp_app.post("/library/file-system/file-replace-text", (req, res) => {
+    router.post("/library/file-system/file-replace-text", (req, res) => {
         const input = req.body;
         const req_log = log.sub("post.library.file-system.file-replace-text");
         handle_rpc_file_replace_text(req_log, input, {
@@ -376,7 +456,32 @@ export function attach_rpc_handler(plog: Logger, opt: { exp_app: express.Express
         });
     });
 
-    exp_app.post("/library/file-system/file-write-hex", (req, res) => {
+    router.post("/library/file-system/file-write-base64", (req, res) => {
+        const input = req.body;
+        const req_log = log.sub("post.library.file-system.file-write-base64");
+        handle_rpc_file_write_base64(req_log, input, {
+            invalid_input: (err) => {
+                // bad request
+                req_log.error(err);
+                res.status(400);
+                res.end(err.message);
+            },
+            ok: (result) => {
+                // include normal fail case
+                req_log.variable("result", result);
+                req_log.ok();
+                res.json(result);
+            },
+            fail: (err) => {
+                // internal error (not normal fail)
+                req_log.error(err);
+                res.status(500);
+                res.end(err.message);
+            }
+        });
+    });
+
+    router.post("/library/file-system/file-write-hex", (req, res) => {
         const input = req.body;
         const req_log = log.sub("post.library.file-system.file-write-hex");
         handle_rpc_file_write_hex(req_log, input, {
@@ -401,7 +506,32 @@ export function attach_rpc_handler(plog: Logger, opt: { exp_app: express.Express
         });
     });
 
-    exp_app.post("/library/file-system/file-write-text", (req, res) => {
+    router.post("/library/file-system/file-write-json", (req, res) => {
+        const input = req.body;
+        const req_log = log.sub("post.library.file-system.file-write-json");
+        handle_rpc_file_write_json(req_log, input, {
+            invalid_input: (err) => {
+                // bad request
+                req_log.error(err);
+                res.status(400);
+                res.end(err.message);
+            },
+            ok: (result) => {
+                // include normal fail case
+                req_log.variable("result", result);
+                req_log.ok();
+                res.json(result);
+            },
+            fail: (err) => {
+                // internal error (not normal fail)
+                req_log.error(err);
+                res.status(500);
+                res.end(err.message);
+            }
+        });
+    });
+
+    router.post("/library/file-system/file-write-text", (req, res) => {
         const input = req.body;
         const req_log = log.sub("post.library.file-system.file-write-text");
         handle_rpc_file_write_text(req_log, input, {
@@ -426,7 +556,7 @@ export function attach_rpc_handler(plog: Logger, opt: { exp_app: express.Express
         });
     });
 
-    exp_app.post("/library/file-system/path-exist", (req, res) => {
+    router.post("/library/file-system/path-exist", (req, res) => {
         const input = req.body;
         const req_log = log.sub("post.library.file-system.path-exist");
         handle_rpc_path_exist(req_log, input, {
@@ -451,7 +581,7 @@ export function attach_rpc_handler(plog: Logger, opt: { exp_app: express.Express
         });
     });
 
-    exp_app.post("/library/file-system/temp-path-resolve", (req, res) => {
+    router.post("/library/file-system/temp-path-resolve", (req, res) => {
         const input = req.body;
         const req_log = log.sub("post.library.file-system.temp-path-resolve");
         handle_rpc_temp_path_resolve(req_log, input, {
@@ -476,7 +606,7 @@ export function attach_rpc_handler(plog: Logger, opt: { exp_app: express.Express
         });
     });
 
-    exp_app.post("/library/file-system/unwatch", (req, res) => {
+    router.post("/library/file-system/unwatch", (req, res) => {
         const input = req.body;
         const req_log = log.sub("post.library.file-system.unwatch");
         handle_rpc_unwatch(req_log, input, {
@@ -501,7 +631,7 @@ export function attach_rpc_handler(plog: Logger, opt: { exp_app: express.Express
         });
     });
 
-    exp_app.post("/library/file-system/watch", (req, res) => {
+    router.post("/library/file-system/watch", (req, res) => {
         const input = req.body;
         const req_log = log.sub("post.library.file-system.watch");
         handle_rpc_watch(req_log, input, {

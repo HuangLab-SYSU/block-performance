@@ -14,13 +14,16 @@
             "path": "./aws-lightsail"
         },
         {
-            "path": "./buffer"
-        },
-        {
             "path": "./cloudman"
         },
         {
             "path": "./file-system"
+        },
+        {
+            "path": "./node-buffer"
+        },
+        {
+            "path": "./npm-public-registry-api"
         },
         {
             "path": "./package-json"
@@ -29,10 +32,22 @@
             "path": "./packager"
         },
         {
+            "path": "./prettier"
+        },
+        {
             "path": "./pty"
         },
         {
+            "path": "./semver"
+        },
+        {
             "path": "./storage-simple-coll"
+        },
+        {
+            "path": "./storage-simple-coll-api-disk"
+        },
+        {
+            "path": "./storage-simple-coll-engine-disk"
         },
         {
             "path": "./tailwind"
@@ -42,6 +57,12 @@
         },
         {
             "path": "./typescript"
+        },
+        {
+            "path": "./url"
+        },
+        {
+            "path": "./web-client"
         },
         {
             "path": "./x-cloud-server-aws-lightsail"
@@ -63,9 +84,6 @@
         },
         {
             "path": "./x-ssh-key-store"
-        },
-        {
-            "path": "./zip"
         }
     ]
 }

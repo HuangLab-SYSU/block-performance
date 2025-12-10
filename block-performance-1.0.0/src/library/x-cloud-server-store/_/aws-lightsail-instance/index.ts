@@ -12,9 +12,9 @@ import { AwsLightsailInstance } from "./type/index.js";
 
 export const ls = _.make_ls_cb<AwsLightsailInstance>(config);
 export const add = _.make_add_cb<AwsLightsailInstance>(config);
-export const del_matched = _.make_del_matched_cb<AwsLightsailInstance>(config);
+// export const del_matched = _.make_del_matched_cb<AwsLightsailInstance>(config);
 export const del = _.make_del_cb<AwsLightsailInstance>(config);
 export const get = _.make_get_cb<AwsLightsailInstance>(config);
 export const set = _.make_set_cb<AwsLightsailInstance>(config);
-export const update = _.make_update_cb<AwsLightsailInstance>(config);
-export const find_one = _.make_find_one_cb<AwsLightsailInstance>(config);
+// export const update = _.make_update_cb<AwsLightsailInstance>(config);
+// export const find_one = _.make_find_one_cb<AwsLightsailInstance>(config);

@@ -12,9 +12,9 @@ import { Admin } from "./type/index.js";
 
 export const ls = _.make_ls_cb<Admin>(config);
 export const add = _.make_add_cb<Admin>(config);
-export const del_matched = _.make_del_matched_cb<Admin>(config);
+// export const del_matched = _.make_del_matched_cb<Admin>(config);
 export const del = _.make_del_cb<Admin>(config);
 export const get = _.make_get_cb<Admin>(config);
 export const set = _.make_set_cb<Admin>(config);
-export const update = _.make_update_cb<Admin>(config);
-export const find_one = _.make_find_one_cb<Admin>(config);
+// export const update = _.make_update_cb<Admin>(config);
+// export const find_one = _.make_find_one_cb<Admin>(config);

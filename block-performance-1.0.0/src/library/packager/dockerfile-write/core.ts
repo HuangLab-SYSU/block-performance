@@ -12,7 +12,8 @@ export async function core<R>(log: Logger, input: Input, cb: Callback<R>): Promi
         {
             name: input.name,
             version: input.version,
-            with_customize_dir: input.with_customize_dir
+            with_customize_dir: input.with_customize_dir,
+            custom_build_steps: input.custom_build_steps
         },
         {
             ok: (output) => {

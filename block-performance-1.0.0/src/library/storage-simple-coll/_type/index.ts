@@ -1,8 +1,1 @@
-export interface Item {
-    id: string;
-    [key: string]: any;
-}
-
-export interface IdItem {
-    id: string;
-}
+export * from "../../storage-simple-coll-api-disk/_type/index.js";

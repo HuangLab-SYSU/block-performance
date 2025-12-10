@@ -9,6 +9,7 @@ export interface Input {
         library_list: string[];
         npm_script: { dev: string; start: string; stop: string };
         customize_file_list: { name: string; json_data?: { [key: string]: any } }[];
+        custom_build_steps: { library_name: string; function_name: string; function_input: { [key: string]: any } }[];
     };
     remote: { username: string; address: string; ssh_auth_key: { os?: boolean; store?: boolean; file?: string } };
     pre_installed_applications?: { docker?: {}; python?: {}; build_essential?: {}; chromium_deps?: {} };
@@ -50,6 +51,7 @@ export function check_input<R>(plog: Logger, v: any, cb: { ok: () => R; fail: (e
             if (field === "library_list") return;
             if (field === "npm_script") return;
             if (field === "customize_file_list") return;
+            if (field === "custom_build_steps") return;
             throw new Error("v.app contains unknown field: " + field);
         });
 
@@ -140,6 +142,48 @@ export function check_input<R>(plog: Logger, v: any, cb: { ok: () => R; fail: (e
                     log.println("item.json_data[field] must be any (ignore)");
                 });
             }
+        });
+
+        log.println("v.app.custom_build_steps must be array");
+        if (!Array.isArray(v.app.custom_build_steps)) {
+            throw new Error("v.app.custom_build_steps is not array");
+        }
+
+        v.app.custom_build_steps.forEach((item: any, i: number) => {
+            log.println("check v.app.custom_build_steps[i]");
+
+            log.println("item must be object");
+            if (typeof item !== "object" || item === null) {
+                throw new Error("item is not object");
+            }
+
+            Object.keys(item).forEach((field) => {
+                if (field === "library_name") return;
+                if (field === "function_name") return;
+                if (field === "function_input") return;
+                throw new Error("item contains unknown field: " + field);
+            });
+
+            log.println("item.library_name must be string");
+            if (typeof item.library_name !== "string") {
+                throw new Error("item.library_name is not string");
+            }
+
+            log.println("item.function_name must be string");
+            if (typeof item.function_name !== "string") {
+                throw new Error("item.function_name is not string");
+            }
+
+            log.println("item.function_input must be object");
+            if (typeof item.function_input !== "object" || item.function_input === null) {
+                throw new Error("item.function_input is not object");
+            }
+
+            Object.keys(item.function_input).forEach((field) => {
+                // a dynamic field, check it (FIXME log message is not clear)
+
+                log.println("item.function_input[field] must be any (ignore)");
+            });
         });
 
         log.println("v.remote must be object");

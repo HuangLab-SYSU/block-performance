@@ -1,6 +1,6 @@
 import { Logger } from "../../../myutils/logger.js";
 import { IdItem } from "../_type/index.js";
-import { collection_get_one } from "../collection-get-one/export.js";
+import { collection_item_get } from "../collection-item-get/export.js";
 
 export interface MakeGetCallback<T, R> {
     none: () => R;
@@ -12,7 +12,7 @@ export function make_get_cb<T extends IdItem>(opt: { namespace: string; key: str
     return async function get<R>(plog: Logger, id: string, cb: MakeGetCallback<T, R>): Promise<R> {
         const log = plog.sub(`store.${namespace}.${key}.get`);
         log.variable("id", id);
-        return await collection_get_one(
+        return await collection_item_get(
             log,
             {
                 namespace,

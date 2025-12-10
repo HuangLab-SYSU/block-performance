@@ -4,10 +4,10 @@ import { Logger } from "../../../myutils/logger.js";
 import { Input, Output, Callback } from "./type.js";
 import * as fs from "node:fs/promises";
 import * as path from "node:path";
-import { buffer_from } from "../../buffer/_/buffer_from.js";
+import { buffer_from } from "../../node-buffer/_/buffer_from.js";
 
 export async function core<R>(log: Logger, input: Input, cb: Callback<R>): Promise<R> {
-    const buff = await buffer_from(log, input.hex, "hex", {
+    const buff = buffer_from(log, input.hex, "hex", {
         empty: (output) => output,
         ok: (output) => {
             return output;

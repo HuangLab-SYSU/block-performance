@@ -204,6 +204,7 @@ async function make_input_from_prompts<R>(
             library_list: string[];
             npm_script: { dev: string; start: string; stop: string };
             customize_file_list: { name: string; json_data?: { [key: string]: any } }[];
+            custom_build_steps: { library_name: string; function_name: string; function_input: { [key: string]: any } }[];
         }) => R;
         fail: (err: Error) => R;
     }
@@ -216,6 +217,7 @@ async function make_input_from_prompts<R>(
             library_list: string[];
             npm_script: { dev: string; start: string; stop: string };
             customize_file_list: { name: string; json_data?: { [key: string]: any } }[];
+            custom_build_steps: { library_name: string; function_name: string; function_input: { [key: string]: any } }[];
         } = {
             name: await input_name(log.sub("name"), {
                 ok: (v) => v,
@@ -242,6 +244,12 @@ async function make_input_from_prompts<R>(
                 }
             }),
             customize_file_list: await input_customize_file_list(log.sub("customize_file_list"), {
+                ok: (v) => v,
+                fail: (err) => {
+                    throw err;
+                }
+            }),
+            custom_build_steps: await input_custom_build_steps(log.sub("custom_build_steps"), {
                 ok: (v) => v,
                 fail: (err) => {
                     throw err;
@@ -431,6 +439,92 @@ async function make_input_from_prompts<R>(
                 } else {
                     return undefined;
                 }
+            }
+        }
+    }
+
+    async function input_custom_build_steps<R>(
+        plog: Logger,
+        cb: { ok: (v: { library_name: string; function_name: string; function_input: { [key: string]: any } }[]) => R; fail: (err: Error) => R }
+    ): Promise<R> {
+        const log = plog.sub("input_custom_build_steps");
+        const length = await prompts.input_number("(array.length) custom_build_steps");
+        const list: { library_name: string; function_name: string; function_input: { [key: string]: any } }[] = [];
+        for (let i = 0; i < length; ++i) {
+            const err = await input_item(log, {
+                ok: (item) => {
+                    list.push(item);
+                    return null;
+                },
+                fail: (err) => {
+                    return err;
+                }
+            });
+
+            if (err) {
+                return cb.fail(err);
+            }
+        }
+
+        return cb.ok(list);
+
+        async function input_item<R>(
+            plog: Logger,
+            cb: { ok: (v: { library_name: string; function_name: string; function_input: { [key: string]: any } }) => R; fail: (err: Error) => R }
+        ): Promise<R> {
+            const log = plog.sub("input_item");
+            try {
+                var v: { library_name: string; function_name: string; function_input: { [key: string]: any } } = {
+                    library_name: await input_library_name(log.sub("library_name"), {
+                        ok: (v) => v,
+                        fail: (err) => {
+                            throw err;
+                        }
+                    }),
+                    function_name: await input_function_name(log.sub("function_name"), {
+                        ok: (v) => v,
+                        fail: (err) => {
+                            throw err;
+                        }
+                    }),
+                    function_input: await input_function_input(log.sub("function_input"), {
+                        ok: (v) => v,
+                        fail: (err) => {
+                            throw err;
+                        }
+                    })
+                };
+            } catch (err) {
+                log.error(err);
+                return cb.fail(err);
+            }
+
+            return cb.ok(v);
+
+            async function input_library_name<R>(plog: Logger, cb: { ok: (v: string) => R; fail: (err: Error) => R }): Promise<R> {
+                const log = plog.sub("input_library_name");
+                // FIXME implement all string constrains here
+                const v = await prompts.input_string("library_name", { allow_empty: true });
+                return cb.ok(v);
+            }
+
+            async function input_function_name<R>(plog: Logger, cb: { ok: (v: string) => R; fail: (err: Error) => R }): Promise<R> {
+                const log = plog.sub("input_function_name");
+                // FIXME implement all string constrains here
+                const v = await prompts.input_string("function_name", { allow_empty: true });
+                return cb.ok(v);
+            }
+
+            async function input_function_input<R>(plog: Logger, cb: { ok: (v: { [key: string]: any }) => R; fail: (err: Error) => R }): Promise<R> {
+                const log = plog.sub("input_function_input");
+                try {
+                    var v: { [key: string]: any } = {};
+                } catch (err) {
+                    log.error(err);
+                    return cb.fail(err);
+                }
+
+                return cb.ok(v);
             }
         }
     }

@@ -9,10 +9,7 @@
             "path": "../../myutils"
         },
         {
-            "path": "../task-queue"
-        },
-        {
-            "path": "../zip"
+            "path": "../storage-simple-coll-api-disk"
         }
     ]
 }

@@ -5,8 +5,8 @@ import { Logger } from "../../../myutils/logger.js";
 import { classic } from "../../../myutils/node/classic.js";
 const { __dirname } = classic(import.meta.url);
 
-export function attach_webroot_handler(plog: Logger, opt: { exp_app: express.Express; url_prefix: string }) {
+export function attach_webroot_handler(plog: Logger, opt: { router: express.Router }) {
     const log = plog.sub("server.attach_webroot_handler");
-    const { exp_app, url_prefix } = opt;
-    exp_app.use(url_prefix, express.static(path.resolve(__dirname, "../_webroot")));
+    const { router } = opt;
+    router.use(express.static(path.resolve(__dirname, "../_webroot")));
 }

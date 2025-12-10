@@ -12,11 +12,11 @@ import { handle_rpc_dockerfile_make } from "../dockerfile-make/rpc/handle.js";
 import { handle_rpc_dockerfile_write } from "../dockerfile-write/rpc/handle.js";
 import { handle_rpc_npm_package_analyze } from "../npm-package-analyze/rpc/handle.js";
 
-export function attach_rpc_handler(plog: Logger, opt: { exp_app: express.Express }) {
+export function attach_rpc_handler(plog: Logger, opt: { router: express.Router }) {
     const log = plog.sub("server.attach_rpc_handler");
-    const { exp_app } = opt;
+    const { router } = opt;
 
-    exp_app.post("/library/packager/build", (req, res) => {
+    router.post("/library/packager/build", (req, res) => {
         const input = req.body;
         const req_log = log.sub("post.library.packager.build");
         handle_rpc_build(req_log, input, {
@@ -41,7 +41,7 @@ export function attach_rpc_handler(plog: Logger, opt: { exp_app: express.Express
         });
     });
 
-    exp_app.post("/library/packager/clear", (req, res) => {
+    router.post("/library/packager/clear", (req, res) => {
         const input = req.body;
         const req_log = log.sub("post.library.packager.clear");
         handle_rpc_clear(req_log, input, {
@@ -66,7 +66,7 @@ export function attach_rpc_handler(plog: Logger, opt: { exp_app: express.Express
         });
     });
 
-    exp_app.post("/library/packager/copy", (req, res) => {
+    router.post("/library/packager/copy", (req, res) => {
         const input = req.body;
         const req_log = log.sub("post.library.packager.copy");
         handle_rpc_copy(req_log, input, {
@@ -91,7 +91,7 @@ export function attach_rpc_handler(plog: Logger, opt: { exp_app: express.Express
         });
     });
 
-    exp_app.post("/library/packager/demo-build", (req, res) => {
+    router.post("/library/packager/demo-build", (req, res) => {
         const input = req.body;
         const req_log = log.sub("post.library.packager.demo-build");
         handle_rpc_demo_build(req_log, input, {
@@ -116,7 +116,7 @@ export function attach_rpc_handler(plog: Logger, opt: { exp_app: express.Express
         });
     });
 
-    exp_app.post("/library/packager/dependency-analyze", (req, res) => {
+    router.post("/library/packager/dependency-analyze", (req, res) => {
         const input = req.body;
         const req_log = log.sub("post.library.packager.dependency-analyze");
         handle_rpc_dependency_analyze(req_log, input, {
@@ -141,7 +141,7 @@ export function attach_rpc_handler(plog: Logger, opt: { exp_app: express.Express
         });
     });
 
-    exp_app.post("/library/packager/docker-build-script-make", (req, res) => {
+    router.post("/library/packager/docker-build-script-make", (req, res) => {
         const input = req.body;
         const req_log = log.sub("post.library.packager.docker-build-script-make");
         handle_rpc_docker_build_script_make(req_log, input, {
@@ -166,7 +166,7 @@ export function attach_rpc_handler(plog: Logger, opt: { exp_app: express.Express
         });
     });
 
-    exp_app.post("/library/packager/docker-build-script-write", (req, res) => {
+    router.post("/library/packager/docker-build-script-write", (req, res) => {
         const input = req.body;
         const req_log = log.sub("post.library.packager.docker-build-script-write");
         handle_rpc_docker_build_script_write(req_log, input, {
@@ -191,7 +191,7 @@ export function attach_rpc_handler(plog: Logger, opt: { exp_app: express.Express
         });
     });
 
-    exp_app.post("/library/packager/dockerfile-make", (req, res) => {
+    router.post("/library/packager/dockerfile-make", (req, res) => {
         const input = req.body;
         const req_log = log.sub("post.library.packager.dockerfile-make");
         handle_rpc_dockerfile_make(req_log, input, {
@@ -216,7 +216,7 @@ export function attach_rpc_handler(plog: Logger, opt: { exp_app: express.Express
         });
     });
 
-    exp_app.post("/library/packager/dockerfile-write", (req, res) => {
+    router.post("/library/packager/dockerfile-write", (req, res) => {
         const input = req.body;
         const req_log = log.sub("post.library.packager.dockerfile-write");
         handle_rpc_dockerfile_write(req_log, input, {
@@ -241,7 +241,7 @@ export function attach_rpc_handler(plog: Logger, opt: { exp_app: express.Express
         });
     });
 
-    exp_app.post("/library/packager/npm-package-analyze", (req, res) => {
+    router.post("/library/packager/npm-package-analyze", (req, res) => {
         const input = req.body;
         const req_log = log.sub("post.library.packager.npm-package-analyze");
         handle_rpc_npm_package_analyze(req_log, input, {

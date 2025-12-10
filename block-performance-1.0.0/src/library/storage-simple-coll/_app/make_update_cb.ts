@@ -1,6 +1,6 @@
 import { Logger } from "../../../myutils/logger.js";
 import { IdItem } from "../_type/index.js";
-import { collection_get } from "../collection-get/export.js";
+import { collection_item_ls } from "../collection-item-ls/export.js";
 import { collection_item_add } from "../collection-item-add/export.js";
 
 // [note]
@@ -38,7 +38,7 @@ export function make_update_cb<T extends IdItem>(opt: { namespace: string; key: 
         log.warn("FIXME transaction protection required!");
         const mode = opts.mode;
         log.variable("mode", mode);
-        return await collection_get(
+        return await collection_item_ls(
             log,
             {
                 namespace,

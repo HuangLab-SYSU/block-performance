@@ -34,6 +34,7 @@ export async function core<R>(log: Logger, input: Input, cb: Callback<R>): Promi
             instanceName: `jmeter-target-${guid()}`,
             blueprintId: "debian_12",
             bundleId: "small_3_0", // 2GB system ram is needed (jmeter slave server need at least 1GB memory used by the process)
+            // bundleId: "2xlarge_3_0", // 32GB ram
             openPorts: [
                 {
                     protocol: "tcp",

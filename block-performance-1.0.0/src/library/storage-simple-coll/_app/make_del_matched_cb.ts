@@ -1,6 +1,6 @@
 import { Logger } from "../../../myutils/logger.js";
 import { IdItem } from "../_type/index.js";
-import { collection_get } from "../collection-get/export.js";
+import { collection_item_ls } from "../collection-item-ls/export.js";
 import { collection_item_del } from "../collection-item-del/export.js";
 
 export interface MakeDelMatchedCallback<T, R> {
@@ -19,7 +19,7 @@ export function make_del_matched_cb<T extends IdItem>(opt: { namespace: string; 
         cb: MakeDelMatchedCallback<T, R>
     ): Promise<R> {
         const log = plog.sub(`store.${namespace}.${key}.del_matched`);
-        return await collection_get(
+        return await collection_item_ls(
             log,
             {
                 namespace,

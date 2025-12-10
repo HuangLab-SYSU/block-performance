@@ -2,7 +2,7 @@ import { jest } from "@jest/globals";
 import { EventCenter } from "./index.js";
 test("empty center", () => {
     const center = new EventCenter();
-    expect(() => center.find("x")).not.toThrowError();
+    expect(() => center.find("x")).not.toThrow();
 });
 test("simple case", () => {
     const center = new EventCenter();

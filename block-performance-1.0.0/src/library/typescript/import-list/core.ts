@@ -10,7 +10,12 @@ export async function core<R>(log: Logger, input: Input, cb: Callback<R>): Promi
 
     const set = new Set<string>();
     ts.forEachChild(source_file, (node) => {
+        // collect from import declarations
         if (ts.isImportDeclaration(node) && ts.isStringLiteral(node.moduleSpecifier)) {
+            set.add(node.moduleSpecifier.text);
+        }
+        // YES, also collect from export declarations
+        else if (ts.isExportDeclaration(node) && ts.isStringLiteral(node.moduleSpecifier)) {
             set.add(node.moduleSpecifier.text);
         }
     });

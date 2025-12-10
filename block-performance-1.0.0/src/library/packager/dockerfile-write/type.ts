@@ -6,6 +6,7 @@ export interface Input {
     name: string;
     version: string;
     with_customize_dir: boolean;
+    custom_build_steps: { library_name: string; function_name: string; function_input: { [key: string]: any } }[];
     output_dir: string;
 }
 
@@ -31,6 +32,7 @@ export function check_input<R>(plog: Logger, v: any, cb: { ok: () => R; fail: (e
             if (field === "name") return;
             if (field === "version") return;
             if (field === "with_customize_dir") return;
+            if (field === "custom_build_steps") return;
             if (field === "output_dir") return;
             throw new Error("v contains unknown field: " + field);
         });
@@ -49,6 +51,48 @@ export function check_input<R>(plog: Logger, v: any, cb: { ok: () => R; fail: (e
         if (typeof v.with_customize_dir !== "boolean") {
             throw new Error("v.with_customize_dir is not boolean");
         }
+
+        log.println("v.custom_build_steps must be array");
+        if (!Array.isArray(v.custom_build_steps)) {
+            throw new Error("v.custom_build_steps is not array");
+        }
+
+        v.custom_build_steps.forEach((item: any, i: number) => {
+            log.println("check v.custom_build_steps[i]");
+
+            log.println("item must be object");
+            if (typeof item !== "object" || item === null) {
+                throw new Error("item is not object");
+            }
+
+            Object.keys(item).forEach((field) => {
+                if (field === "library_name") return;
+                if (field === "function_name") return;
+                if (field === "function_input") return;
+                throw new Error("item contains unknown field: " + field);
+            });
+
+            log.println("item.library_name must be string");
+            if (typeof item.library_name !== "string") {
+                throw new Error("item.library_name is not string");
+            }
+
+            log.println("item.function_name must be string");
+            if (typeof item.function_name !== "string") {
+                throw new Error("item.function_name is not string");
+            }
+
+            log.println("item.function_input must be object");
+            if (typeof item.function_input !== "object" || item.function_input === null) {
+                throw new Error("item.function_input is not object");
+            }
+
+            Object.keys(item.function_input).forEach((field) => {
+                // a dynamic field, check it (FIXME log message is not clear)
+
+                log.println("item.function_input[field] must be any (ignore)");
+            });
+        });
 
         log.println("v.output_dir must be string");
         if (typeof v.output_dir !== "string") {

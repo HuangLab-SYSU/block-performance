@@ -8,11 +8,11 @@ import { handle_rpc_key_import } from "../key-import/rpc/handle.js";
 import { handle_rpc_key_remove } from "../key-remove/rpc/handle.js";
 import { handle_rpc_key_save } from "../key-save/rpc/handle.js";
 
-export function attach_rpc_handler(plog: Logger, opt: { exp_app: express.Express }) {
+export function attach_rpc_handler(plog: Logger, opt: { router: express.Router }) {
     const log = plog.sub("server.attach_rpc_handler");
-    const { exp_app } = opt;
+    const { router } = opt;
 
-    exp_app.post("/library/x-ssh-key-control/key-disabled-set", (req, res) => {
+    router.post("/library/x-ssh-key-control/key-disabled-set", (req, res) => {
         const input = req.body;
         const req_log = log.sub("post.library.x-ssh-key-control.key-disabled-set");
         handle_rpc_key_disabled_set(req_log, input, {
@@ -37,7 +37,7 @@ export function attach_rpc_handler(plog: Logger, opt: { exp_app: express.Express
         });
     });
 
-    exp_app.post("/library/x-ssh-key-control/key-file-path-get", (req, res) => {
+    router.post("/library/x-ssh-key-control/key-file-path-get", (req, res) => {
         const input = req.body;
         const req_log = log.sub("post.library.x-ssh-key-control.key-file-path-get");
         handle_rpc_key_file_path_get(req_log, input, {
@@ -62,7 +62,7 @@ export function attach_rpc_handler(plog: Logger, opt: { exp_app: express.Express
         });
     });
 
-    exp_app.post("/library/x-ssh-key-control/key-find", (req, res) => {
+    router.post("/library/x-ssh-key-control/key-find", (req, res) => {
         const input = req.body;
         const req_log = log.sub("post.library.x-ssh-key-control.key-find");
         handle_rpc_key_find(req_log, input, {
@@ -87,7 +87,7 @@ export function attach_rpc_handler(plog: Logger, opt: { exp_app: express.Express
         });
     });
 
-    exp_app.post("/library/x-ssh-key-control/key-import", (req, res) => {
+    router.post("/library/x-ssh-key-control/key-import", (req, res) => {
         const input = req.body;
         const req_log = log.sub("post.library.x-ssh-key-control.key-import");
         handle_rpc_key_import(req_log, input, {
@@ -112,7 +112,7 @@ export function attach_rpc_handler(plog: Logger, opt: { exp_app: express.Express
         });
     });
 
-    exp_app.post("/library/x-ssh-key-control/key-remove", (req, res) => {
+    router.post("/library/x-ssh-key-control/key-remove", (req, res) => {
         const input = req.body;
         const req_log = log.sub("post.library.x-ssh-key-control.key-remove");
         handle_rpc_key_remove(req_log, input, {
@@ -137,7 +137,7 @@ export function attach_rpc_handler(plog: Logger, opt: { exp_app: express.Express
         });
     });
 
-    exp_app.post("/library/x-ssh-key-control/key-save", (req, res) => {
+    router.post("/library/x-ssh-key-control/key-save", (req, res) => {
         const input = req.body;
         const req_log = log.sub("post.library.x-ssh-key-control.key-save");
         handle_rpc_key_save(req_log, input, {

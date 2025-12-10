@@ -4,11 +4,11 @@ import { Logger } from "../../../myutils/logger.js";
 import { handle_rpc_run } from "../run/rpc/handle.js";
 import { handle_rpc_shell } from "../shell/rpc/handle.js";
 
-export function attach_rpc_handler(plog: Logger, opt: { exp_app: express.Express }) {
+export function attach_rpc_handler(plog: Logger, opt: { router: express.Router }) {
     const log = plog.sub("server.attach_rpc_handler");
-    const { exp_app } = opt;
+    const { router } = opt;
 
-    exp_app.post("/library/pty/run", (req, res) => {
+    router.post("/library/pty/run", (req, res) => {
         const input = req.body;
         const req_log = log.sub("post.library.pty.run");
         handle_rpc_run(req_log, input, {
@@ -33,7 +33,7 @@ export function attach_rpc_handler(plog: Logger, opt: { exp_app: express.Express
         });
     });
 
-    exp_app.post("/library/pty/shell", (req, res) => {
+    router.post("/library/pty/shell", (req, res) => {
         const input = req.body;
         const req_log = log.sub("post.library.pty.shell");
         handle_rpc_shell(req_log, input, {

@@ -159,7 +159,8 @@ export async function core<R>(log: Logger, input: Input, cb: Callback<R>): Promi
             username: input.username,
             address: input.address,
             ssh_auth_key: input.ssh_auth_key,
-            command: `cd '${input.to_remote_dir}' && sudo npm run stop ; sudo npm rebuild ; sudo npm run start`
+            // command: `cd '${input.to_remote_dir}' && sudo npm run stop ; sudo npm rebuild ; sudo npm run start`
+            command: `sudo -i bash -c "cd '${input.to_remote_dir}' && npm run stop ; npm rebuild ; npm run start"`
         },
         {
             ok: () => {},

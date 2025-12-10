@@ -7,6 +7,12 @@
     "references": [
         {
             "path": "../../myutils"
+        },
+        {
+            "path": "../file-system"
+        },
+        {
+            "path": "../prettier"
         }
     ]
 }

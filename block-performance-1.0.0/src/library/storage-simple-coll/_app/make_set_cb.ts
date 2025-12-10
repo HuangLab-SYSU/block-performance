@@ -1,6 +1,6 @@
 import { Logger } from "../../../myutils/logger.js";
 import { IdItem } from "../_type/index.js";
-import { collection_get_one } from "../collection-get-one/export.js";
+import { collection_item_get } from "../collection-item-get/export.js";
 import { collection_item_add } from "../collection-item-add/export.js";
 
 export interface MakeSetCallback<T, R> {
@@ -19,7 +19,7 @@ export function make_set_cb<T extends IdItem>(opt: { namespace: string; key: str
         }
         // TODO should invoke only one kv api to finish the job
         // FIXME it is possible to delete between two calls, makes bugs
-        return await collection_get_one(
+        return await collection_item_get(
             log,
             { namespace, key, match: (o) => o.id === item.id },
             {

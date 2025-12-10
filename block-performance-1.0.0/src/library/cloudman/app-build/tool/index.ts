@@ -7,6 +7,7 @@ export function make_input(
         library_list: string[];
         npm_script: { dev: string; start: string; stop: string };
         customize_file_list: { name: string; json_data?: { [key: string]: any } }[];
+        custom_build_steps: { library_name: string; function_name: string; function_input: { [key: string]: any } }[];
     }) => void
 ): {
     name: string;
@@ -14,6 +15,7 @@ export function make_input(
     library_list: string[];
     npm_script: { dev: string; start: string; stop: string };
     customize_file_list: { name: string; json_data?: { [key: string]: any } }[];
+    custom_build_steps: { library_name: string; function_name: string; function_input: { [key: string]: any } }[];
 } {
     const item: {
         name: string;
@@ -21,7 +23,8 @@ export function make_input(
         library_list: string[];
         npm_script: { dev: string; start: string; stop: string };
         customize_file_list: { name: string; json_data?: { [key: string]: any } }[];
-    } = { name: "", version: "", library_list: [], npm_script: { dev: "", start: "", stop: "" }, customize_file_list: [] };
+        custom_build_steps: { library_name: string; function_name: string; function_input: { [key: string]: any } }[];
+    } = { name: "", version: "", library_list: [], npm_script: { dev: "", start: "", stop: "" }, customize_file_list: [], custom_build_steps: [] };
     if (cb) {
         cb(item);
     }

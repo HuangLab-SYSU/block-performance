@@ -3,11 +3,11 @@ import express from "express";
 import { Logger } from "../../../myutils/logger.js";
 import { handle_rpc_plugin_list } from "../plugin-list/rpc/handle.js";
 
-export function attach_rpc_handler(plog: Logger, opt: { exp_app: express.Express }) {
+export function attach_rpc_handler(plog: Logger, opt: { router: express.Router }) {
     const log = plog.sub("server.attach_rpc_handler");
-    const { exp_app } = opt;
+    const { router } = opt;
 
-    exp_app.post("/library/tailwind/plugin-list", (req, res) => {
+    router.post("/library/tailwind/plugin-list", (req, res) => {
         const input = req.body;
         const req_log = log.sub("post.library.tailwind.plugin-list");
         handle_rpc_plugin_list(req_log, input, {

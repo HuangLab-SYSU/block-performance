@@ -9,7 +9,7 @@
             "path": "../../myutils"
         },
         {
-            "path": "../buffer"
+            "path": "../node-buffer"
         }
     ]
 }

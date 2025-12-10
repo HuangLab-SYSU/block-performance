@@ -10,6 +10,12 @@
         },
         {
             "path": "../file-system"
+        },
+        {
+            "path": "../npm-public-registry-api"
+        },
+        {
+            "path": "../semver"
         }
     ]
 }
