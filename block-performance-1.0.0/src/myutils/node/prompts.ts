@@ -1,5 +1,4 @@
 import prompts from "prompts";
-import * as liburl from "node:url";
 import * as fs from "node:fs";
 
 export async function input_url_or_empty(name: string) {
@@ -21,7 +20,8 @@ export async function input_url(
                     if (opt.allow_empty) return true;
                     else return false;
                 }
-                const url = liburl.parse(value);
+                const url = URL.parse(value);
+                if (!url) return false;
                 // only http, https is acceptable
                 return /^https?:$/i.test(url.protocol) && url.hostname ? true : false;
             }
@@ -83,8 +83,8 @@ export async function input_string(
     const v: string = result[name];
     // dirty feature, support file read here to allow user input a text file
     // eg. input a pem key file (multiple lines of text)
-    const url = liburl.parse(v);
-    if (url.protocol === "file:" && url.host === ".") {
+    const url = URL.parse(v);
+    if (url && url.protocol === "file:" && url.host === ".") {
         const filename = url.pathname;
         const text = fs.readFileSync(filename, "utf-8");
         if (validate(text)) {

@@ -2,3 +2,5 @@
 export * from "./jmeter-cluster-create/export.js";
 export * from "./jmeter-cluster-remove/export.js";
 export * from "./jmeter-cluster-run/export.js";
+export * from "./target-cluster-create/export.js";
+export * from "./target-cluster-remove/export.js";

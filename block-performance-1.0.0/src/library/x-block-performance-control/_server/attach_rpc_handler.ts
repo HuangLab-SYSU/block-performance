@@ -4,6 +4,8 @@ import { Logger } from "../../../myutils/logger.js";
 import { handle_rpc_jmeter_cluster_create } from "../jmeter-cluster-create/rpc/handle.js";
 import { handle_rpc_jmeter_cluster_remove } from "../jmeter-cluster-remove/rpc/handle.js";
 import { handle_rpc_jmeter_cluster_run } from "../jmeter-cluster-run/rpc/handle.js";
+import { handle_rpc_target_cluster_create } from "../target-cluster-create/rpc/handle.js";
+import { handle_rpc_target_cluster_remove } from "../target-cluster-remove/rpc/handle.js";
 
 export function attach_rpc_handler(plog: Logger, opt: { router: express.Router }) {
     const log = plog.sub("server.attach_rpc_handler");
@@ -63,6 +65,56 @@ export function attach_rpc_handler(plog: Logger, opt: { router: express.Router }
         const input = req.body;
         const req_log = log.sub("post.library.x-block-performance-control.jmeter-cluster-run");
         handle_rpc_jmeter_cluster_run(req_log, input, {
+            invalid_input: (err) => {
+                // bad request
+                req_log.error(err);
+                res.status(400);
+                res.end(err.message);
+            },
+            ok: (result) => {
+                // include normal fail case
+                req_log.variable("result", result);
+                req_log.ok();
+                res.json(result);
+            },
+            fail: (err) => {
+                // internal error (not normal fail)
+                req_log.error(err);
+                res.status(500);
+                res.end(err.message);
+            }
+        });
+    });
+
+    router.post("/library/x-block-performance-control/target-cluster-create", (req, res) => {
+        const input = req.body;
+        const req_log = log.sub("post.library.x-block-performance-control.target-cluster-create");
+        handle_rpc_target_cluster_create(req_log, input, {
+            invalid_input: (err) => {
+                // bad request
+                req_log.error(err);
+                res.status(400);
+                res.end(err.message);
+            },
+            ok: (result) => {
+                // include normal fail case
+                req_log.variable("result", result);
+                req_log.ok();
+                res.json(result);
+            },
+            fail: (err) => {
+                // internal error (not normal fail)
+                req_log.error(err);
+                res.status(500);
+                res.end(err.message);
+            }
+        });
+    });
+
+    router.post("/library/x-block-performance-control/target-cluster-remove", (req, res) => {
+        const input = req.body;
+        const req_log = log.sub("post.library.x-block-performance-control.target-cluster-remove");
+        handle_rpc_target_cluster_remove(req_log, input, {
             invalid_input: (err) => {
                 // bad request
                 req_log.error(err);

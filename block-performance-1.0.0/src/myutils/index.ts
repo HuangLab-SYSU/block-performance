@@ -1,7 +1,6 @@
 import * as net from "node:net";
 import * as tls from "node:tls";
 import * as fs from "node:fs";
-import * as liburl from "node:url";
 import { v1 as uuid } from "uuid";
 import { Logger } from "./logger.js";
 import * as dir from "./node/dir/index.js";
@@ -189,13 +188,13 @@ export async function create_tunnel_on_next_proxy(
     }
 ): Promise<net.Socket> {
     let log = plog.sub("create-tunnel-on-next-proxy");
-    let url = liburl.parse(opt.proxy);
+    let url = new URL(opt.proxy);
     let proxyHost = url.hostname; // without port
     let proxyPort = url.port
         ? parseInt(url.port) // fix: negtive or zero number? or not integer?
         : url.protocol === "https:"
-        ? 443
-        : 80;
+          ? 443
+          : 80;
     log.variable("proxy", opt.proxy);
     log.variable("proxy host", proxyHost);
     log.variable("proxy port", proxyPort);
